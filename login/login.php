@@ -12,7 +12,7 @@
                         unset($_SESSION['Registered']);
                     }
                     if(isset($_SESSION['Error'])) {
-                        echo('<p>Incorrect username or password.</p>');
+                        echo('<p>Incorrect email or password.</p>');
                         unset($_SESSION['Error']);
                     }
                 ?>

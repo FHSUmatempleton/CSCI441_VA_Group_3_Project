@@ -8,7 +8,7 @@
 			switch ($action) {
 				case 'login':
 					$PageTitle = "Login";
-					$FileLoc = "login/index.php";
+					$FileLoc = "login/login.php";
 					break;
 				case 'register':
 					$PageTitle = "Register";

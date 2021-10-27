@@ -78,7 +78,7 @@ function confirm_account($email, $password) {
 function set_login_hash($email) {
     global $db;
     $query = 'UPDATE users SET `login_hash` = :lhash WHERE `email` = :email';
-    $hash = sha256(rand());
+    $hash = random_bytes(64);
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':lhash', $hash);
