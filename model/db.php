@@ -1,9 +1,9 @@
 <?php
-$config = parse_ini_file('/var/www/config.ini');
+//$config = parse_ini_file('/var/www/config.ini');
 
 $dsn = "mysql:host=localhost;dbname=cartalog";
-$username = "webuser";
-$password = $config['MYSQL_PASSWORD'];
+$username = "root";
+//$password = $config['MYSQL_PASSWORD'];
 $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
 try {

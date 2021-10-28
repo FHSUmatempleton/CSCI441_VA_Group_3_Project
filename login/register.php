@@ -1,4 +1,8 @@
-<?php $errors = $_POST['errors'];?>
+<?php 
+    if (array_key_exists('errors', $_POST)) {
+        $errors = $_POST['errors'];
+    }
+?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 <section class="vh-100 gradient-custom">
