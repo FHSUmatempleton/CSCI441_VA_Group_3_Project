@@ -70,7 +70,7 @@ function confirm_account($email, $password) {
     if (!get_account_exists($email)) {
         return false;
     } else {
-        $hash = get_password_hash($email);
+        $hash = get_password_hash($email)['password'];
         return password_verify($password, $hash);
     }
 }
@@ -78,12 +78,13 @@ function confirm_account($email, $password) {
 function set_login_hash($email) {
     global $db;
     $query = 'UPDATE users SET `login_hash` = :lhash WHERE `email` = :email';
-    $hash = random_bytes(64);
+    $hash = bin2hex(random_bytes(64));
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':lhash', $hash);
         $stmt->bindValue(':email', $email);
         $stmt->execute();
+        return $hash;
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
