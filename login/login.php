@@ -22,13 +22,18 @@
 
                 <form action="controller/login/login.php" method="post">
                     <div class="form-outline form-white mb-4">
-                        <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                        <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" />
                         <label class="form-label" for="typeEmailX">Email</label>
                     </div>
 
                     <div class="form-outline form-white mb-4">
-                        <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                        <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" />
                         <label class="form-label" for="typePasswordX">Password</label>
+                    </div>
+
+                    <div class="form-outline form-white mb-4">
+                        <input type="checkbox" name="login_persist" id="login_persist"/>
+                        <label class="form-label" for="login_persist">Stay signed in</label>
                     </div>
 
                     <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
