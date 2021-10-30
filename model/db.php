@@ -1,9 +1,13 @@
 <?php
-//$config = parse_ini_file('/var/www/config.ini');
-
 $dsn = "mysql:host=localhost;dbname=cartalog";
-$username = "root";
-$password = ""; //$config['MYSQL_PASSWORD'];
+
+if (PHP_OS == "Linux" && gethostname() == "web") {
+    $username = "webuser";
+    $password = parse_ini_file('/var/www/config.ini')['MYSQL_PASSWORD'];
+} else {
+    $username = "root";
+    $password = "";
+}
 $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
 try {
