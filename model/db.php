@@ -3,7 +3,7 @@
 
 $dsn = "mysql:host=localhost;dbname=cartalog";
 $username = "root";
-//$password = $config['MYSQL_PASSWORD'];
+$password = ""; //$config['MYSQL_PASSWORD'];
 $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
 try {
