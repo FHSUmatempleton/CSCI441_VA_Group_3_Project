@@ -1,6 +1,7 @@
 
 		<?php
 
+			$includeCSS = array();
 			$action = filter_input(INPUT_GET, 'a', FILTER_SANITIZE_STRING);
 			if (strlen($action) == 0) {
 				$action = 'login';
@@ -12,7 +13,7 @@
 					break;
 				case 'register':
 					$PageTitle = "Register";
-					$includeCSS = array("css/login/register.css");
+					array_push($includeCSS, "css/login/register.css");
 					$FileLoc = "login/register.php";
 					break;
 			}

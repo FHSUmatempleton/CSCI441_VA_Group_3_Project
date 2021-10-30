@@ -137,7 +137,7 @@ $info['zip'] = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 $info['hash'] = password_hash($info['password'], PASSWORD_DEFAULT);
 
 // Generate a registration hash, this is used for email verification.
-$info['reghash'] = random_bytes(32);
+$info['reghash'] = bin2hex(random_bytes(32));
 
 // Send email here.
 

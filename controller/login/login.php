@@ -18,7 +18,7 @@ $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 if (confirm_account($email, $password)) {
     $hash = set_login_hash($email);
     // Set login to not expire for one week.
-    setcookie("login", $hash, time() + (60 * 60 * 24 * 7));
+    setcookie("login", $hash, time() + (60 * 60 * 24 * 7), '/');
     header("Location: /index.php");
 } else {
     $_SESSION['Error'] = "IncorrectInfo";
