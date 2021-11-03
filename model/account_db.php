@@ -90,3 +90,18 @@ function set_login_hash($email) {
         display_db_error($err);
     }
 }
+
+function get_account_by_hash($hash) {
+    global $db;
+    $query = 'SELECT * FROM `users` WHERE `login_hash` = :lhash';
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':lhash', $hash);
+        $stmt->execute();
+        $account = $stmt->fetchall();
+        return $account;
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}

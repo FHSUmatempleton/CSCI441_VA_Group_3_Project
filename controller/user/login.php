@@ -17,8 +17,12 @@ $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
 if (confirm_account($email, $password)) {
     $hash = set_login_hash($email);
-    // Set login to not expire for one week.
-    setcookie("login", $hash, time() + (60 * 60 * 24 * 7), '/');
+    // If Stay signed in checkbox is checked, sign in for a week.
+    if (isset($_POST['login_persist'])) {
+        setcookie("login", $hash, time() + (60 * 60 * 24 * 7), '/');
+    }
+    $_SESSION['login'] = $hash;
+    
     header("Location: /index.php");
 } else {
     $_SESSION['Error'] = "IncorrectInfo";

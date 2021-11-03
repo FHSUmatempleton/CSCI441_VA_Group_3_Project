@@ -1,5 +1,11 @@
 
 		<?php
+		    if (session_status() === PHP_SESSION_NONE) {
+				session_start();
+			}
+			if (isset($_COOKIE['login'])) {
+
+			}
 
 			$includeCSS = array();
 			$action = filter_input(INPUT_GET, 'a', FILTER_SANITIZE_STRING);
@@ -9,12 +15,16 @@
 			switch ($action) {
 				case 'login':
 					$PageTitle = "Login";
-					$FileLoc = "login/login.php";
+					$FileLoc = "user/login.php";
 					break;
 				case 'register':
 					$PageTitle = "Register";
 					array_push($includeCSS, "css/login/register.css");
 					$FileLoc = "login/register.php";
+					break;
+				case 'profile':
+					$PageTitle = "Profile";
+					$FileLoc = "user/profile.php";
 					break;
 			}
 			include_once('view/header1.php');

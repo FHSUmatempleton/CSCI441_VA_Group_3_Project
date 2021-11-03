@@ -8,7 +8,7 @@
             <div class="mb-md-5 mt-md-4 pb-5">
                 <?php
                     if(isset($_SESSION['Registered'])) {
-                        echo('<p>Please check your email for the registration link!</p>');
+                        //echo('<p>Please check your email for the registration link!</p>');
                         unset($_SESSION['Registered']);
                     }
                     if(isset($_SESSION['Error'])) {
@@ -20,7 +20,7 @@
                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                 <p class="text-white-50 mb-5">Please enter your login and password!</p>
 
-                <form action="controller/login/login.php" method="post">
+                <form action="controller/user/login.php" method="post">
                     <div class="form-outline form-white mb-4">
                         <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" />
                         <label class="form-label" for="typeEmailX">Email</label>

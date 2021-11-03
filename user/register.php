@@ -13,7 +13,7 @@
         <div class="card-body p-5 text-center">
 
 
-            <form action="controller/login/register.php" method="post">
+            <form action="controller/user/register.php" method="post">
                 <div class="mb-md-5 mt-md-4 pb-5">
 
                 <?php if (isset($_SESSION['Error'])) {

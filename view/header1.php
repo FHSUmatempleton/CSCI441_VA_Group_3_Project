@@ -2,6 +2,11 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    if (isset($_COOKIE['login']) && !isset($_SESSION['login'])) {
+        $_SESSION['login'] = $_COOKIE['login'];
+    } else if (isset($_COOKIE['login]']) && isset($_SESSION['login']) && ($_COOKIE['login'] != $_SESSION['login'])) {
+        $_SESSION['login'] = $_COOKIE['login'];
+    }
 ?>
 <!doctype html>
 <html>
