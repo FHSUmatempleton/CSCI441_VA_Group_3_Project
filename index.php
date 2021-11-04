@@ -10,7 +10,7 @@
 			$includeCSS = array();
 			$action = filter_input(INPUT_GET, 'a', FILTER_SANITIZE_STRING);
 			if (strlen($action) == 0) {
-				$action = 'login';
+				$action = 'search';
 			}
 			switch ($action) {
 				case 'login':
@@ -25,6 +25,11 @@
 				case 'profile':
 					$PageTitle = "Profile";
 					$FileLoc = "user/profile.php";
+					break;
+				case 'search':
+					$PageTitle = "Search";
+					array_push($includeCSS, "css/search/search.css");
+					$FileLoc = "search/search.php";
 					break;
 			}
 			include_once('view/header1.php');

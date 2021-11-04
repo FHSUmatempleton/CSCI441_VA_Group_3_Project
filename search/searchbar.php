@@ -1,39 +1,44 @@
-<html<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></html>
+<html>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></html>
 <?php 
-
-    require "../search/searchdb.php"; //including php file for database connection
+    require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/model/search_db.php');
 ?>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="../search/search.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<?php  //get data from data base
-$select_make= "SELECT DISTINCT manufacturer FROM cars ORDER BY manufacturer"; //search all make from DB
-$select_model= "SELECT DISTINCT model FROM cars ORDER BY model"; // search all model from DB
-$select_bodytype= "SELECT DISTINCT body FROM cars ORDER BY body"; // search all body type from DB
-$select_color= "SELECT DISTINCT color FROM cars ORDER BY color"; // search all colors from DB
+<?php
 
-$manufacturers = mysqli_query($conn, $select_make);  // query unique make
-$models = mysqli_query($conn, $select_model);  // query unique model
-$colors = mysqli_query($conn, $select_color);  // query unique colors
-$bodytypes = mysqli_query($conn, $select_bodytype);  // query unique body type
+$manufacturers  = get_all_makes();      // query unique make
+$models         = get_all_models();     // query unique model
+$colors         = get_all_colors();     // query unique colors
+$bodytypes      = get_all_bodytypes();  // query unique body type
 
 //$make_array = mysqli_fetch_array($manufacturers); //array for **NOT USED YET***
 ?>
 <!-- Make and Model button -->
-<div class="btn-group">
+
+<div class="btn-group" style="margin-left: 2%;">
   <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   Make & Model
   </button>
-  
+
   <div class="dropdown-menu dropdown-menu-right">
+    <?php
+      foreach ($manufacturers as $row) {
+        echo('<button class="dropdown-item" type="button">');
+        echo(ucfirst(strtolower($row["manufacturer"])));
+        echo('</button>');
+      }
+    ?>
     <button class="dropdown-item" type="button">
         <?php 
+            // foreach ($manufacturers as $row) {
+            //   // var_dump($row["manufacturer"]);
+            //   echo "" . $row["manufacturer"] . "<br>";
+            // }
 
-            while($row = mysqli_fetch_assoc($manufacturers)) {
-            echo "" . $row["manufacturer"]. "<br>";
-                }
+            // while($row = mysqli_fetch_assoc($manufacturers)) {
+            // echo "" . $row["manufacturer"]. "<br>";
+            //     }
         ?>
     </button>
   </div>
@@ -89,14 +94,13 @@ $bodytypes = mysqli_query($conn, $select_bodytype);  // query unique body type
   </button>
   
   <div class="dropdown-menu dropdown-menu-right">
-  <button class="dropdown-item" type="button">
-        <?php 
-
-            while($row1 = mysqli_fetch_assoc($colors)) {
-            echo "" . $row1["color"]. "<br>";
-                }
-        ?>
-    </button>
+      <?php
+        foreach ($colors as $row) {
+          echo('<button class="dropdown-item" type="button">');
+          echo(ucfirst($row["color"]));
+          echo('</button>');
+        }
+      ?>
   </div>
 </div>
 
@@ -107,14 +111,13 @@ $bodytypes = mysqli_query($conn, $select_bodytype);  // query unique body type
   </button>
   
   <div class="dropdown-menu dropdown-menu-right">
-  <button class="dropdown-item" type="button">
-        <?php 
-
-            while($row = mysqli_fetch_assoc($bodytypes)) {
-            echo "" . $row["body"]. "<br>";
-                }
-        ?>
-    </button>
+   <?php
+      foreach ($bodytypes as $row) {
+        echo('<button class="dropdown-item" type="button">');
+        echo(ucfirst($row["body"]));
+        echo('</button>');
+      }
+    ?>
   </div>
 </div>
 

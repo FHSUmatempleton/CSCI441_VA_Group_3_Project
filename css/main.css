@@ -1,15 +1,15 @@
 .color-bg, .footer-main {
-    background: #FFAA00;
+    background: #666;
 }
 .gradient-custom {
     /* fallback for old browsers */
-    background: #FFAA00;
+    background: #666;
   
     /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgba(255, 238, 0, 1), rgba(255, 170, 0, 1));
+    background: -webkit-linear-gradient(to right, rgb(255, 206, 206), rgb(255, 150, 150));
   
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(255, 238, 0, 1), rgba(255, 170, 0, 1))
+    background: linear-gradient(to right, rgb(255, 206, 206), rgb(255, 150, 150));
 }
 
 .footer-main {

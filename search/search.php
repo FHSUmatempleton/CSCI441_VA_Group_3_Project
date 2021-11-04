@@ -6,11 +6,8 @@
 
 
 <?php 
-    include_once('../view/header1.php');
-    include_once('../view/header2.php');
-    include_once('../search/searchbar.php');
-    include_once('../search/searchresults.php'); 
-    include_once('../view/footer.php');
+    include_once($_SERVER['DOCUMENT_ROOT'].'/search/searchbar.php');
+    include_once($_SERVER['DOCUMENT_ROOT'].'/search/searchresults.php'); 
 ?>
 
 

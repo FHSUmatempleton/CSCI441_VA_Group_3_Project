@@ -2,8 +2,11 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    // If we have a login cookie but nothing in the session, copy it.
     if (isset($_COOKIE['login']) && !isset($_SESSION['login'])) {
         $_SESSION['login'] = $_COOKIE['login'];
+
+    // If the session login info is mismatched, prefer cookie.
     } else if (isset($_COOKIE['login]']) && isset($_SESSION['login']) && ($_COOKIE['login'] != $_SESSION['login'])) {
         $_SESSION['login'] = $_COOKIE['login'];
     }
