@@ -20,7 +20,7 @@
 				case 'register':
 					$PageTitle = "Register";
 					array_push($includeCSS, "css/login/register.css");
-					$FileLoc = "login/register.php";
+					$FileLoc = "user/register.php";
 					break;
 				case 'profile':
 					$PageTitle = "Profile";
