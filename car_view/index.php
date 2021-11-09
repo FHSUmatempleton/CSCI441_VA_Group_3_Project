@@ -1,44 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Cartana</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+	require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
+	if (!isset($_GET['id'])) {
+		$id = 3;
+		//echo("<script>location.href = 'index.php?a=search';</script>");
+	} else {
+		$id = $_GET['id'];
+	}
+	
+	$car = get_car($id);
+?>
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/ionicons.min.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-
-  </head>
-  <body>
-
-	  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Cartana</span></a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
-
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
-	          <li class="nav-item"><a href="financing.html" class="nav-link">Financing</a></li>
-	          <li class="nav-item active"><a href="cars.html" class="nav-link">Cars</a></li>
-	          <li class="nav-item"><a href="revies.html" class="nav-link">Reviews</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact us</a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-    <!-- END nav -->
-
-    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -58,7 +34,7 @@
       			<div class="car-details">
       				<div class="img rounded" style="background-image: url(images/bg_1.jpg);"></div>
       				<div class="text text-center">
-      					<h2>Audi A4 Sedan</h2>
+      					<h2><?php echo($car['manufacturer'] . " " . $car['model'] . " " . $car['body']);?></h2>
       				</div>
       			</div>
       		</div>
@@ -72,7 +48,7 @@
                   <div class="text">
                     <h3 class="heading mb-0 pl-3">
                       Year
-                      <span>2017</span>
+                      <span><?php echo($car['year']);?></span>
                     </h3>
                   </div>
                 </div>
@@ -87,7 +63,7 @@
 	              	<div class="text">
 		                <h3 class="heading mb-0 pl-3">
 		                	Mileage
-		                	<span>40,000</span>
+		                	<span><?php echo($car['odo']);?></span>
 		                </h3>
 	                </div>
                 </div>
@@ -185,71 +161,3 @@
 				</div>
       </div>
     </section>
-
-
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2"><a href="#" class="logo">Cartana</span></a></h2>
-              <p> ???</p>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4 ml-md-5">
-              <h2 class="ftco-heading-2">Information</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">About</a></li>
-                <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-                <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Customer Support</h2>
-              <ul class="list-unstyled">
-                <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                <li><a href="#" class="py-2 d-block">How it works</a></li>
-                <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Have a Questions?</h2>
-            	<div class="block-23 mb-3">
-	              <ul>
-	                <li><span class="icon icon-map-marker"></span><span class="text">Address</span></li>
-	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">Phone</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@gmail.com</span></a></li>
-	              </ul>
-	            </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-	
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/jquery.timepicker.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
-  <script src="js/main.js"></script>
-	
-  </body>
-</html>
