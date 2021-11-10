@@ -1,1 +1,0 @@
-var submitButton = document.getElementById('submitButton');
