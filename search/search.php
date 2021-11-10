@@ -1,5 +1,8 @@
 
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/search_db.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php'); //including php file for database connection
 ?>
@@ -11,17 +14,53 @@
     $colors         = get_all_colors();     // query unique colors
     $bodytypes      = get_all_bodytypes();  // query unique body type
 
-    $all_results    = get_all_cars(0,25); //get all cars sorted by id
+    if (!isset($_GET['make']) || !isset($_GET['price']) || !isset($_GET['odo']) || !isset($_GET['year']) || !isset($_GET['body']) || !isset($_GET['color'])) {
+        $all_results = get_all_cars(0,25); //get all cars sorted by id
+    } else {
+        if ($_GET['make'] == "all") {
+            $make = "*";
+        } else {
+            $make = $_GET['make'];
+        }
+
+        if ($_GET['price'] == "all") {
+            $price = "*";
+        } else {
+            $price = $_GET['price'];
+        }
+
+        if ($_GET['odo'] == "all") {
+            $odo = "*";
+        } else {
+            $odo = $_GET['odo'];
+        }
+
+        if ($_GET['year'] == "all") {
+            $year = "*";
+        } else {
+            $year = $_GET['year'];
+        }
+
+        if ($_GET['body'] == "all") {
+            $body = "*";
+        } else {
+            $body = $_GET['body'];
+        }
+
+        if ($_GET['color'] == "all") {
+            $color = "*";
+        } else {
+            $color = $_GET['color'];
+        }
+        $all_results = get_cars_by_query(0,25, $make, $price, $odo, $year, $body, $color);
+    }
 
    //$test = get_car_by_color(0,25);
 
     
 ?>
 
-<!-- ajax file reference-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- search js file reference-->
-<script type="text/javascrip" src="../js/search/search.js"></script>
+
 
 
 <!--------------------------------------------------------------------------------HTML------------------------------------------------------------------------->
@@ -33,50 +72,48 @@
                 <header class="search_header">
                     <p id="usedcars">USED CARS</p>
 
-                   <div class = "search_container"> 
-                       <!--------------------Search Dropdown: MODEL--------------->
-                        <select id="model_search" style="width:16%" onchange="select_model()">
-                            <option hidden>Make & Model</option>
-                            <?php 
-                                foreach ($manufacturers as $row):
-                            ?>
+                   <div class = "search_container">
+                   <form action="index.php?" method="get">
+                       <!--------------------Search Dropdown: MAKE--------------->
+                        <select id="model_search" name="make" style="width:15%">
+                            <option value="all" hidden>Make</option>
+                            <?php foreach ($manufacturers as $row): ?>
                                 <option value ="<?php echo $row["manufacturer"] ?>"><?php echo (ucfirst($row["manufacturer"])) ?></option>
                             <?php endforeach;   ?>
-
                         </select>
                         <!---------Search Dropdown: PRICE :: Search by Range------->
-                        <select id="price_search" style="width:16%" onchange="select_price()">
-                            <option hidden>Price</option>
-                            <option value=" BETWEEN 0 AND 4999 "> > $40,000 </option>
-                            <option value=" BETWEEN 30000 AND 40000 "> $30,000 - $40,000 </option>
-                            <option value=" BETWEEN 20000 AND 30000 "> $20,000 - $30,000 </option>
-                            <option value=" BETWEEN 10000 AND 20000 "> $10,000 - $20,000 </option>
-                            <option value=" BETWEEN 0 AND 10000 "> < $10,000 </option>
+                        <select id="price_search" name="price" style="width:15%">
+                            <option value="all" hidden>Price</option>
+                            <option value="BETWEEN 0 AND 4999 AND "> > $40,000 </option>
+                            <option value="BETWEEN 30000 AND 40000 AND "> $30,000 - $40,000 </option>
+                            <option value="BETWEEN 20000 AND 30000 AND "> $20,000 - $30,000 </option>
+                            <option value="BETWEEN 10000 AND 20000 AND "> $10,000 - $20,000 </option>
+                            <option value="BETWEEN 0 AND 10000 AND "> < $10,000 </option>
                         </select>
 
                         <!---------Search Dropdown: ODO :: Search by Range------->
-                        <select id="odo_search" style="width:16%" onchange="select_mileage()">
-                            <option hidden>Mileage</option>
-                            <option value=" BETWEEN 0 AND 4999 "> < 5,000 miles</option>
-                            <option value=" BETWEEN 5000 AND 9999 "> 5,000 - 10,000 miles </option>
-                            <option value=" BETWEEN 10000 AND 49999 "> 10,000 - 50,000 miles</option>
-                            <option value=" BETWEEN 50000 AND 99999 "> 50,000 - 100,000 miles</option>
-                            <option value=" BETWEEN 100000 AND 300000 "> > 100,000 miles</option>
+                        <select id="odo_search" name="odo" style="width:15%">
+                            <option value="all" hidden>Mileage</option>
+                            <option value="BETWEEN 0 AND 4999 AND "> < 5,000 miles</option>
+                            <option value="BETWEEN 5000 AND 9999 AND "> 5,000 - 10,000 miles </option>
+                            <option value="BETWEEN 10000 AND 49999 AND "> 10,000 - 50,000 miles</option>
+                            <option value="BETWEEN 50000 AND 99999 AND "> 50,000 - 100,000 miles</option>
+                            <option value="BETWEEN 100000 AND 300000 AND "> > 100,000 miles</option>
                         </select>
 
                         <!---------Search Dropdown: YEAR :: Search by Range------->
-                        <select id="year_search" style="width:16%" onchange="select_year()">
-                            <option hidden>Year</option>
-                            <option value=" BETWEEN 2020 AND 2050 ">2020 and newer</option>
-                            <option value=" BETWEEN 2010 AND 2020 ">2010 to 2020</option>
-                            <option value=" BETWEEN 2005 AND 2010 ">2005 and 2010</option>
-                            <option value=" BETWEEN 2000 AND 2005 ">2000 and 2005</option>
-                            <option value=" BETWEEN 1900 AND 2000 ">2000 and older</option>
+                        <select id="year_search" name="year" style="width:15%">
+                            <option value="all" hidden>Year</option>
+                            <option value="BETWEEN 2020 AND 2050 AND ">2020 and newer</option>
+                            <option value="BETWEEN 2010 AND 2020 AND ">2010 to 2020</option>
+                            <option value="BETWEEN 2005 AND 2010 AND ">2005 and 2010</option>
+                            <option value="BETWEEN 2000 AND 2005 AND ">2000 and 2005</option>
+                            <option value="BETWEEN 1900 AND 2000 AND ">2000 and older</option>
                         </select>
 
                         <!-----------------Search Dropdown: BODY-------------------->
-                        <select id="body_search"style="width:16%" onchange="select_body()">
-                            <option hidden>Body Type</option>
+                        <select id="body_search" name="body" style="width:15%">
+                            <option value="all" hidden>Body Type</option>
                             <?php 
                                 foreach ($bodytypes as $row):
                             ?>
@@ -85,14 +122,16 @@
                         </select>
 
                         <!------------------Search Dropdown: COLOR------------------->
-                        <select id="color_search"  style="width:16%">
-                            <option hidden>Color</option>
+                        <select id="color_search" name="color" style="width:15%">
+                            <option value="all" hidden>Color</option>
                             <?php 
                                 foreach ($colors as $row):
                             ?>
                                 <option onclick = "select_color(this.value)" value ="<?php echo $row['color'] ?>"><?php echo (ucfirst($row["color"])) ?></option>
                             <?php endforeach;   ?>
                         </select>
+                        <button class="btn btn-outline-dark" type="submit">Search</button>
+                    </form>
                    </div>
                 </header>
             <main>
@@ -104,7 +143,7 @@
                     <div class="column">
                         
                         
-                        <a href="#">
+                        <a href="<?php echo('index.php?a=view&id=' . $row['id'])?>">
                             <div class="card text-right" id="result_card">
                                 <img class="card-img-top" src=<?php echo('"'.$row['image_url'].'"');?> alt="Vehicle Image">
                                 <div class="card-body">
