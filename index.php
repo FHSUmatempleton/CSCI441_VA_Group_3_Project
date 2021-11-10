@@ -27,6 +27,7 @@
 					break;
 				case 'profile':
 					$PageTitle = "Profile";
+					array_push($includeCSS, "css/search/search.css");
 					$FileLoc = "user/profile.php";
 					break;
 				case 'search':
