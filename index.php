@@ -1,4 +1,3 @@
-
 		<?php
 		    if (session_status() === PHP_SESSION_NONE) {
 				session_start();
@@ -9,7 +8,7 @@
 			if (strlen($action) == 0) {
 				$action = 'search';
 			}
-			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && $action != 'register') {
+			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && $action != 'register' && $action != 'recovery') {
 				$action = 'login';
 			}
 			switch ($action) {
@@ -21,6 +20,10 @@
 					$PageTitle = "Register";
 					array_push($includeCSS, "css/login/register.css");
 					$FileLoc = "user/register.php";
+					break;
+				case 'recovery':
+					$PageTitle = "Password Recovery";
+					$FileLoc = "user/recovery.php";
 					break;
 				case 'profile':
 					$PageTitle = "Profile";
