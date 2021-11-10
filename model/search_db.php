@@ -76,31 +76,55 @@ function get_all_cars($start, $count) {
 
 }
 
-//----------get cars by color------------
-function get_car_by_color ($start, $count) {
+function get_cars_by_query($start, $count, $make, $price, $mileage, $year, $body, $color) {
     global $db;
-    $q = intval($_GET['q']);
-    $query = "SELECT image_url, year, manufacturer, model, odo, price, id FROM cars WHERE color = '{$q}' ORDER BY id DESC LIMIT 25";
+    $query = "SELECT * FROM cars WHERE ";
+    if ($make != "*") {
+        $query .= "manufacturer = :make AND ";
+    }
+    if ($price != "*") {
+        $query .= "price " . $price;
+    }
+    if ($mileage != "*") {
+        $query .= "odo " . $mileage;
+    }
+    if ($year != "*") {
+        $query .= "year " . $year;
+    }
+    if ($body != "*") {
+        $query .= "body = :body AND ";
+    }
+    if ($color != "*") {
+        $query .= "color = :color AND ";
+    }
+    $query .= "1=1";
     try {
         $stmt = $db->prepare($query);
-        // $stmt->bindValue(':start', $start);
-        // $stmt->bindValue(':count', $count);
-        $stmt->execute();
+        if ($make != "*") {
+            $stmt -> bindValue(':make', $make);
+        }
+        if ($body != "*") {
+            $stmt -> bindValue(':body', $body);
+        }
+        if ($color != "*") {
+            $stmt -> bindValue(':color', $color);
+        }
+        $stmt -> execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
     }
-
 }
 
-
-function get_car_by_color_black ($start, $count) {
+//----------get cars by color------------
+function get_car_by_color ($start, $count) {
     global $db;
-    $k = "black";
-    $query = "SELECT image_url, year, manufacturer, model, odo, price, id FROM cars WHERE color = '{$k}' ORDER BY id DESC LIMIT 25";
+    $q = intval($_GET['q']);
+    $query = "SELECT image_url, year, manufacturer, model, odo, price, id FROM cars WHERE color = ':color' ORDER BY id DESC LIMIT 25";
     try {
         $stmt = $db->prepare($query);
+        $stmt -> bindValue(':color', $q);
         // $stmt->bindValue(':start', $start);
         // $stmt->bindValue(':count', $count);
         $stmt->execute();
