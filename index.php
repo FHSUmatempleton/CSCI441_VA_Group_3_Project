@@ -36,7 +36,7 @@
 					break;
 				case 'view':
 					$PageTitle = "Car Detail";
-					$FileLoc = "car_view/index.php";
+					$FileLoc = "car_view/view.php";
 					break;
 			}
 			include_once('view/header1.php');
