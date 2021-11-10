@@ -1,29 +1,9 @@
-
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
+//display search results from drop-down list : BY COLOR 
+function selectColor(){
+    alert("got it");
 }
+    
 
-function filterFunction() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDropdown");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
-    }
-  }
+function select_price(){
+    alert("got it");
 }
-
-/*checkbox function*/
-$select(document).ready(function() {       
-	$('#countries').multiselect({		
-		nonSelectedText: 'Select Teams'				
-	});
-});
