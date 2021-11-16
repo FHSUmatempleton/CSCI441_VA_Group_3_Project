@@ -145,11 +145,11 @@ error_reporting(E_ALL);
                         
                         <a href="<?php echo('index.php?a=view&id=' . $row['id'])?>">
                             <div class="card text-right" id="result_card">
-                                <img class="card-img-top" src=<?php echo('"'.$row['image_url'].'"');?> alt="Vehicle Image">
+                                <img class="card-img-top" src="img/examplecar.jpg" alt="Vehicle Image">
                                 <div class="card-body">
                                     <p class="card-text" style="text-transform:uppercase;" id="results_yearmakemodel_text"><?php echo(''.$row['year'].'  '.$row['manufacturer'].' '.$row['model']);?> </p> <!--year and make and model-->
+                                    <p class="card-text">Price: <?php echo("$".number_format($row['price']));?></p></p> <!--mileage-->
                                     <p class="card-text">Mileage: <?php echo(''.$row['odo']);?></p></p> <!--mileage-->
-                                    <p class="card-text">ID: <?php echo(''.$row['id']);?> </p>
                                         
                                 </div>     
                             </div>
