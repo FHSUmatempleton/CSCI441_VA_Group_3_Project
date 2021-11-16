@@ -78,7 +78,7 @@ function confirm_account($email, $password) {
 function set_login_hash($email) {
     global $db;
     $query = 'UPDATE users SET `login_hash` = :lhash WHERE `email` = :email';
-    $hash = bin2hex(random_bytes(64));
+    $hash = bin2hex(random_bytes(32));
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':lhash', $hash);
@@ -98,7 +98,7 @@ function get_account_by_hash($hash) {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':lhash', $hash);
         $stmt->execute();
-        $account = $stmt->fetchall();
+        $account = $stmt->fetch();
         return $account;
     } catch (PDOException $e) {
         $err = $e->getMessage();

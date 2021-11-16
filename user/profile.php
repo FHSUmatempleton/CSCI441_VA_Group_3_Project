@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
 
@@ -8,7 +7,7 @@
     }
     
     $hash = $_SESSION['login'];
-    $account = get_account_by_hash($hash)[0];
+    $account = get_account_by_hash($hash);
 ?>
 
 <div id="wrapper">
