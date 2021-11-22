@@ -11,6 +11,9 @@
 			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && $action != 'register' && $action != 'recovery') {
 				$action = 'login';
 			}
+			if ($action = "admin" && (!isset($_SESSION['perms']) || $_SESSION['perms'] < 2)) {
+				$action = 'search';
+			}
 			switch ($action) {
 				case 'login':
 					$PageTitle = "Login";
@@ -28,6 +31,7 @@
 				case 'profile':
 					$PageTitle = "Profile";
 					array_push($includeCSS, "css/search/search.css");
+					array_push($includeCSS, "css/login/register.css");
 					$FileLoc = "user/profile.php";
 					break;
 				case 'search':
@@ -38,6 +42,15 @@
 				case 'view':
 					$PageTitle = "Car Detail";
 					$FileLoc = "car_view/view.php";
+					break;
+				case 'changepass':
+					$PageTitle = "Change Password";
+					array_push($includeCSS, "css/login/register.css");
+					$FileLoc = "user/password.php";
+					break;
+				case 'admin':
+					$PageTitle = "Admin";
+					$FileLoc = "admin/admin.php";
 					break;
 			}
 			include_once('view/header1.php');

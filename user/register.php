@@ -78,14 +78,10 @@
 
                 <div class="form-outline row form-white">
                     <div class="col-6">
-                        <input type="text" name="city" id="city" class="form-control form-control-lg" />
-                        <label class="form-label" for="city">City</label>
-                    </div>
-                    <div class="col-3">
                         <input type="text" name="state" id="state" class="form-control form-control-lg" pattern="\D*" maxlength="2" />
                         <label class="form-label" for="state">State</label>
                     </div>
-                    <div class="col-3">
+                    <div class="col-6">
                         <input type="number" name="zip" id="zipcode" class="form-control form-control-lg" pattern="\d*" oninput="this.value=this.value.slice(0, this.maxLength)" maxlength="5" />
                         <label class="form-label" for="zip">ZIP Code</label>
                     </div>

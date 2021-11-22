@@ -1,4 +1,7 @@
 <?php
+    require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
+
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
@@ -7,9 +10,11 @@
         $_SESSION['login'] = $_COOKIE['login'];
 
     // If the session login info is mismatched, prefer cookie.
-    } else if (isset($_COOKIE['login]']) && isset($_SESSION['login']) && ($_COOKIE['login'] != $_SESSION['login'])) {
+    } else if (isset($_COOKIE['login']) && isset($_SESSION['login']) && ($_COOKIE['login'] != $_SESSION['login'])) {
         $_SESSION['login'] = $_COOKIE['login'];
     }
+
+    $_SESSION['perms'] = get_perms_by_hash($_SESSION['login']);
 ?>
 <!doctype html>
 <html>

@@ -14,7 +14,7 @@ if (
     !isset($_POST['email']) || !isset($_POST['password'])
     || !isset($_POST['confirmPass']) || !isset($_POST['fname'])
     || !isset($_POST['lname']) || !isset($_POST['address'])
-    || !isset($_POST['city']) || !isset($_POST['state'])
+    || !isset($_POST['state'])
     || !isset($_POST['zip']) || !isset($_POST['phone'])
     ) {
     $_SESSION['Error'] = "NoField";
@@ -38,9 +38,6 @@ if (!isset($_POST['lname'])) {
 }
 if (!isset($_POST['address'])) {
     array_push($_SESSION['ErrorFields'], "Street Address");
-}
-if (!isset($_POST['city'])) {
-    array_push($_SESSION['ErrorFields'], "City");
 }
 if (!isset($_POST['state'])) {
     array_push($_SESSION['ErrorFields'], "State");
@@ -129,7 +126,6 @@ if(strlen($info['phone']) != 10) {
 $info['fname'] = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_STRING);
 $info['lname'] = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_STRING);
 $info['addr'] = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
-$info['city'] = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
 $info['state'] = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING);
 $info['zip'] = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING);
 
