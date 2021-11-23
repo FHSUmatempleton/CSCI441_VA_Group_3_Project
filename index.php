@@ -8,10 +8,10 @@
 			if (strlen($action) == 0) {
 				$action = 'search';
 			}
-			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && $action != 'register' && $action != 'recovery') {
+			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && ($action != 'register' || $action != 'recovery')) {
 				$action = 'login';
 			}
-			if ($action = "admin" && (!isset($_SESSION['perms']) || $_SESSION['perms'] < 2)) {
+			if ($action == "admin" && (!isset($_SESSION['perms']) || $_SESSION['perms'] < 2)) {
 				$action = 'search';
 			}
 			switch ($action) {
@@ -55,8 +55,8 @@
 			}
 			include_once('view/header1.php');
 			foreach ($includeCSS as $cssFile): ?>
-				<link href="<?= $cssFile; ?>" type="text/css" rel="stylesheet">
-			<?php
+		<link href="<?= $cssFile; ?>" type="text/css" rel="stylesheet">
+		<?php
 			endforeach;
 			include_once('view/header2.php');
 			include_once($FileLoc)
