@@ -1,5 +1,3 @@
-
-
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php'); //including php file for database connection
 
@@ -26,23 +24,27 @@ function get_car_by_color ($start, $count) {
 ?>
 
 <div class="row">
-                    <?php
+    <?php
                         foreach($color_results as $row): ?>
-                    <div class="column">
-                        
-                        
-                        <a href="#">
-                            <div class="card text-right" id="result_card">
-                                <img class="card-img-top" src=<?php echo('"'.$row['image_url'].'"');?> alt="Vehicle Image">
-                                <div class="card-body">
-                                    <p class="card-text" style="text-transform:uppercase;" id="results_yearmakemodel_text"><?php echo(''.$row['year'].'  '.$row['manufacturer'].' '.$row['model']);?> </p> <!--year and make and model-->
-                                    <p class="card-text">Mileage: <?php echo(''.$row['odo']);?></p></p> <!--mileage-->
-                                    <p class="card-text">ID: <?php echo(''.$row['id']);?> </p>
-                                        
-                                </div>     
-                            </div>
-                        </a>
-                    
-                    </div>
-                    <?php endforeach; ?> 
+    <div class="column">
+
+
+        <a href="#">
+            <div class="card text-right" id="result_card">
+                <img class="card-img-top" src=<?php echo('"'.$row['image_url'].'"');?> alt="Vehicle Image">
+                <div class="card-body">
+                    <p class="card-text" style="text-transform:uppercase;" id="results_yearmakemodel_text">
+                        <?php echo(''.$row['year'].'  '.$row['manufacturer'].' '.$row['model']);?> </p>
+                    <!--year and make and model-->
+                    <p class="card-text">Mileage: <?php echo(''.$row['odo']);?></p>
+                    </p>
+                    <!--mileage-->
+                    <p class="card-text">ID: <?php echo(''.$row['id']);?> </p>
+
                 </div>
+            </div>
+        </a>
+
+    </div>
+    <?php endforeach; ?>
+</div>

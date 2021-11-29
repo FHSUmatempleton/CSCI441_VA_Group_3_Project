@@ -1,4 +1,3 @@
-
 <?php 
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php'); //including php file for database connection
@@ -62,7 +61,7 @@ function get_all_colors() {
 //**********get all year, url, model, mileage, price in order to display in search results for default cards */
 function get_all_cars($start, $count) {
     global $db;
-    $query = "SELECT image_url, year, manufacturer, model, odo, price, id FROM cars ORDER BY id DESC LIMIT 25";
+    $query = "SELECT year, manufacturer, model, odo, price, id, color, body FROM cars ORDER BY id DESC LIMIT 25";
     try {
         $stmt = $db->prepare($query);
         // $stmt->bindValue(':start', $start);
@@ -73,23 +72,26 @@ function get_all_cars($start, $count) {
         $err = $e->getMessage();
         display_db_error($err);
     }
-
 }
 
-function get_cars_by_query($start, $count, $make, $price, $mileage, $year, $body, $color) {
+function get_all_cars_count() {
     global $db;
-    $query = "SELECT * FROM cars WHERE ";
+    $query = "SELECT COUNT(*) FROM cars;";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt -> execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function get_cars_by_query($start, $count, $make, $priceMin, $priceMax, $odoMin, $odoMax, $yearMin, $yearMax, $body, $color) {
+    global $db;
+    $query = "SELECT year, manufacturer, model, odo, price, id, color, body FROM cars WHERE ";
     if ($make != "*") {
         $query .= "manufacturer = :make AND ";
-    }
-    if ($price != "*") {
-        $query .= "price " . $price;
-    }
-    if ($mileage != "*") {
-        $query .= "odo " . $mileage;
-    }
-    if ($year != "*") {
-        $query .= "year " . $year;
     }
     if ($body != "*") {
         $query .= "body = :body AND ";
@@ -97,7 +99,11 @@ function get_cars_by_query($start, $count, $make, $price, $mileage, $year, $body
     if ($color != "*") {
         $query .= "color = :color AND ";
     }
-    $query .= "1=1";
+    $query .= "price BETWEEN :priceMin AND :priceMax AND ";
+    $query .= "odo BETWEEN :odoMin AND :odoMax AND ";
+    $query .= "year BETWEEN :yearMin AND :yearMax AND ";
+    $query .= "1=1 ";
+    $query .= "LIMIT :count OFFSET :start";
     try {
         $stmt = $db->prepare($query);
         if ($make != "*") {
@@ -109,8 +115,57 @@ function get_cars_by_query($start, $count, $make, $price, $mileage, $year, $body
         if ($color != "*") {
             $stmt -> bindValue(':color', $color);
         }
+        $stmt -> bindValue(':priceMin', $priceMin);
+        $stmt -> bindValue(':priceMax', $priceMax);
+        $stmt -> bindValue(':odoMin', $odoMin);
+        $stmt -> bindValue(':odoMax', $odoMax);
+        $stmt -> bindValue(':yearMin', $yearMin);
+        $stmt -> bindValue(':yearMax', $yearMax);
+        $stmt -> bindValue(':count', $count, PDO::PARAM_INT);
+        $stmt -> bindValue(':start', $start, PDO::PARAM_INT);
         $stmt -> execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function get_cars_count_by_query($make, $priceMin, $priceMax, $odoMin, $odoMax, $yearMin, $yearMax, $body, $color) {
+    global $db;
+    $query = "SELECT COUNT(*) FROM cars WHERE ";
+    if ($make != "*") {
+        $query .= "manufacturer = :make AND ";
+    }
+    if ($body != "*") {
+        $query .= "body = :body AND ";
+    }
+    if ($color != "*") {
+        $query .= "color = :color AND ";
+    }
+    $query .= "price BETWEEN :priceMin AND :priceMax AND ";
+    $query .= "odo BETWEEN :odoMin AND :odoMax AND ";
+    $query .= "year BETWEEN :yearMin AND :yearMax AND ";
+    $query .= "1=1 ";
+    try {
+        $stmt = $db->prepare($query);
+        if ($make != "*") {
+            $stmt -> bindValue(':make', $make);
+        }
+        if ($body != "*") {
+            $stmt -> bindValue(':body', $body);
+        }
+        if ($color != "*") {
+            $stmt -> bindValue(':color', $color);
+        }
+        $stmt -> bindValue(':priceMin', $priceMin);
+        $stmt -> bindValue(':priceMax', $priceMax);
+        $stmt -> bindValue(':odoMin', $odoMin);
+        $stmt -> bindValue(':odoMax', $odoMax);
+        $stmt -> bindValue(':yearMin', $yearMin);
+        $stmt -> bindValue(':yearMax', $yearMax);
+        $stmt -> execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
