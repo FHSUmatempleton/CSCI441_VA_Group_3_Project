@@ -153,26 +153,26 @@ error_reporting(E_ALL);
                         <div style="float: left; margin-right: 0.25%; width: 10%">
                             <label for="priceMin">Min. Price</label>
                             <input type="text" name="priceMin" id="priceMin" style="width: 100%; float: right;"
-                                default="0" placeholder="Min. Price" />
-                            <label for="priceMin">Max. Price</label>
+                                default="0" placeholder="Min. Price" /></br>
+                            <label for="priceMax">Max. Price</label>
                             <input type="text" name="priceMax" id="priceMax" style="width: 100%;" default="1000000"
                                 placeholder="Max Price" />
                         </div>
                         <!---------Search Dropdown: ODO :: Search by Range------->
                         <div style="float: left; margin-right: 0.25%; width: 10%">
-                            <label for="priceMin">Min. Mileage</label>
+                            <label for="odoMin">Min. Mileage</label>
                             <input type="text" name="odoMin" id="odoMin" style="width: 100%" default="0"
-                                placeholder="Min. Mileage" />
-                            <label for="priceMin">Max. Mileage</label>
+                                placeholder="Min. Mileage" /></br>
+                            <label for="odoMax">Max. Mileage</label>
                             <input type="text" name="odoMax" id="odoMax" style="width: 100%" default="1000000"
                                 placeholder="Max Mileage" />
                         </div>
                         <!---------Search Dropdown: YEAR :: Search by Range------->
                         <div style="float: left; margin-right: 0.25%; width: 10%">
-                            <label for="priceMin">Min. Year</label>
+                            <label for="yearMin">Min. Year</label>
                             <input type="text" name="yearMin" id="yearMin" style="width: 100%" default="1985"
-                                placeholder="Min. Year" />
-                            <label for="priceMin">Max. Year</label>
+                                placeholder="Min. Year" /></br>
+                            <label for="yearMax">Max. Year</label>
                             <input type="text" name="yearMax" id="yearMax" style="width: 100%" default="2030"
                                 placeholder="Max Year" />
                         </div>
@@ -306,18 +306,18 @@ error_reporting(E_ALL);
 <script>
     function select_color(str) {
         if (str == "") {
-            document.getElementById("color_search").innerHTML = "");
-        return;
-    } else {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("color_search").innerHTML = this.responseText;
-            }
-        };
-        xmlhttp.open("GET", "results.php?q=" + str, true);
-        xmlhttp.send();
-    }
+            document.getElementById("color_search").innerHTML = "";
+            return;
+        } else {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("color_search").innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "results.php?q=" + str, true);
+            xmlhttp.send();
+        }
     }
     ////display search results from drop-down list : COLOR*/
     function select_color_bad() {

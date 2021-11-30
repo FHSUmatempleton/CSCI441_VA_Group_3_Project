@@ -1,15 +1,24 @@
 .color-bg, .footer-main {
-    background: #666;
+    /* fallback for old browsers */
+    background: rgb(255, 192, 192);
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to bottom right, rgb(255, 206, 206), rgb(255, 150, 150));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to bottom left, rgb(220, 220, 220), rgb(160, 160, 160));
 }
 .gradient-custom {
     /* fallback for old browsers */
-    background: #666;
+    background: rgb(255, 192, 192);
   
     /* Chrome 10-25, Safari 5.1-6 */
     background: -webkit-linear-gradient(to right, rgb(255, 206, 206), rgb(255, 150, 150));
   
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, rgb(255, 206, 206), rgb(255, 150, 150));
+    background-image: url('/img/background.jpg');
+    background-size: 100% auto;
 }
 
 .footer-main {
@@ -18,6 +27,10 @@
 
 html, body {
     height: 100%;
+}
+
+.plain {
+    background-image: none !important;
 }
 
 

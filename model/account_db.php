@@ -166,7 +166,7 @@ function get_perms_by_hash($hash) {
         $stmt->bindValue(':lhash', $hash);
         $stmt->execute();
         $account = $stmt->fetch();
-        return intval($account[0]);
+        return intval($account["perms"]);
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);

@@ -8,7 +8,10 @@
 			if (strlen($action) == 0) {
 				$action = 'search';
 			}
-			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && ($action != 'register' || $action != 'recovery')) {
+
+			$exclude_pages = array('register', 'recovery');
+
+			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && !in_array($action, $exclude_pages)) {
 				$action = 'login';
 			}
 			if ($action == "admin" && (!isset($_SESSION['perms']) || $_SESSION['perms'] < 2)) {
@@ -52,6 +55,10 @@
 					$PageTitle = "Admin";
 					$FileLoc = "admin/admin.php";
 					break;
+				case 'inventory':
+					$PageTitle = "Inventory";
+					$FileLoc = "inventory/inventory.php";
+					break;
 			}
 			include_once('view/header1.php');
 			foreach ($includeCSS as $cssFile): ?>
@@ -59,8 +66,6 @@
 		<?php
 			endforeach;
 			include_once('view/header2.php');
-			include_once($FileLoc)
+			include_once($FileLoc);
+			include_once('view/footer.php');
 		?>
-
-
-		<?php include_once('view/footer.php'); ?>
