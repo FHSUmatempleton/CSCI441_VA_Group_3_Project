@@ -9,7 +9,8 @@ function create_recovery_record($userid) {
     $start_time = new DateTime();
     $end_time = (clone $start_time)->add(new DateInterval('PT1H'));    // expiration = 1 hour
 
-    $query = 'INSERT INTO password_recovery (token_key, start_time, end_time, userid) VALUES (:token_key, :start_time, :end_time, :userid)';
+    $query =    'INSERT INTO password_recovery (token_key, start_time, end_time, userid)
+                VALUES (:token_key, :start_time, :end_time, :userid)';
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':userid', $userid);
@@ -45,7 +46,7 @@ function confirm_valid_token($token_key, $current_time) {
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':token_key', $token_key);
-        $stmt->bindValue(':time', $current_time);
+        $stmt->bindValue(':current_time', $current_time);
         $stmt->execute();
         $result = $stmt->fetch();
         // return # of rows resulted from query
