@@ -1,23 +1,17 @@
 <?php
 function create_recovery_record($userid) {
     global $db;
-    $query =    "INSERT IGNORE INTO "
-                .   " `password_recovery` "
-                .   "SET"
-                .   " `userid`              = :userid, "
-                .   " `token_key`           = :token_key, "
-                .   " `start_time`          = :start_time, "
-                .   " `end_time`            = :end_time";
+
+    // Generate token key...
+    $token_key = bin2hex(random_bytes(32));
+
+    // Get start/end times...
+    $start_time = new DateTime();
+    $end_time = (clone $start_time)->add(new DateInterval('PT1H'));    // expiration = 1 hour
+
+    $query = 'INSERT INTO password_recovery (token_key, start_time, end_time, userid) VALUES (:token_key, :start_time, :end_time, :userid)';
     try {
         $stmt = $db->prepare($query);
-
-        // Generate token key...
-        $token_key = bin2hex(random_bytes(32));
-
-        // Get start/end times...
-        $start_time = new DateTime();
-        $end_time = (clone $start_time)->add(new DateInterval('PT1H'));    // expiration = 1 hour
-
         $stmt->bindValue(':userid', $userid);
         $stmt->bindValue(':token_key', $token_key);
         $stmt->bindValue(':start_time', $start_time->format('Y-m-d H:i:s'));

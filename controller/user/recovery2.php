@@ -13,7 +13,7 @@ $token = substr($url, -32);     // retrieve 32 char token at end of url
 $current_time = new DateTime();
 
 //  If token is invalid/expired redirect to login page
-if (!confirm_valid_token($token)) {
+if (!confirm_valid_token($token, $current_time)) {
     echo "Invalid/expired token";
     sleep(10);  // wait 10 seconds...
     header("Location: /index.php?a=login.php");     
