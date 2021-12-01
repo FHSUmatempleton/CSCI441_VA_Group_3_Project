@@ -43,4 +43,21 @@ function get_recovery_record($userid) {
         display_db_error($err);
     }
 }
+
+function confirm_valid_token($token_key, $current_time) {
+    global $db;
+    $query =    'SELECT * FROM `password_recovery` WHERE `token_key` = :token_key 
+                AND `:current_time` BETWEEN `start_time` AND `end_time` ';
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':token_key', $token_key);
+        $stmt->bindValue(':time', $current_time);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        // return # of rows resulted from query
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
 ?>

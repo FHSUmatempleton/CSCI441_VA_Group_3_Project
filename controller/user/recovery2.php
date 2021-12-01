@@ -8,11 +8,18 @@ error_reporting(E_ALL);
 
 $debug = false;
 
-// To do: verify token has correct url
-// To do: verify token is not expired
+$url = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$token = substr($url, -32);     // retrieve 32 char token at end of url
+$current_time = new DateTime();
 
+//  If token is invalid/expired redirect to login page
+if (!confirm_valid_token($token)) {
+    echo "Invalid/expired token";
+    sleep(10);  // wait 10 seconds...
+    header("Location: /index.php?a=login.php");     
+}
 
-// Verify all fields are given.
+//  Verify all fields are given.
 $errors = false;
 if (
     !isset($_POST['curPassword']) || !isset($_POST['newPassword'])
@@ -35,7 +42,7 @@ if (!isset($_POST['confirmPass'])) {
 $account = get_account_by_hash($_SESSION['login']);
 if (!confirm_account($account['email'], $_POST['curPassword'])) {
     $_SESSION['Error'] = "InvalidPass";
-    header("Location: /index.php?a=crecovery2");
+    header("Location: /index.php?a=recovery2");
 }
 
 if ($errors) {
@@ -44,7 +51,7 @@ if ($errors) {
         echo("<p>" . var_dump($_SESSION['ErrorFields']) . "</p>");
         echo("<p>" . var_dump($_POST) . "</p>");
     } else {
-        header("Location: /index.php?a=crecovery2");
+        header("Location: /index.php?a=recovery2");
     }
     exit();
 }
@@ -56,7 +63,7 @@ if ($_POST['newPassword'] != $_POST['confirmPass']) {
         echo('<p>Passwords don\'t match.</p>');
     } else {
         $_SESSION['Error'] = "NoMatch";
-        header("Location: /index.php?a=crecovery2");
+        header("Location: /index.php?a=recovery2");
     }
     exit();
 }
@@ -77,7 +84,7 @@ if ($complexity < 3 || strlen($info['newPassword']) < 8) {
         echo('<p>Password not complex enough.</p>');
     } else {
         $_SESSION['Error'] = "InsecurePass";
-        header("Location: /index.php?a=crecovery2");
+        header("Location: /index.php?a=recovery2");
     }
     exit();
 }
@@ -92,7 +99,7 @@ if ($debug) {
 } else {
     update_password($_SESSION['login'], $phash);
     $_SESSION['Registered'] = true;
-    header("Location: /index.php?a=crecovery2");
+    header("Location: /index.php?a=recovery2");
 }
 
 

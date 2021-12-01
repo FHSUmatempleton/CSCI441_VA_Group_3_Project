@@ -31,6 +31,10 @@
 					$PageTitle = "Password Recovery";
 					$FileLoc = "user/recovery.php";
 					break;
+				case 'recovery2':
+					$PageTitle = "Password Recovery";
+					$FileLoc = "user/recovery2.php";
+					break;
 				case 'profile':
 					$PageTitle = "Profile";
 					array_push($includeCSS, "css/search/search.css");
