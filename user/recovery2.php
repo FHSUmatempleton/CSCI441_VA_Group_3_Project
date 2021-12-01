@@ -16,13 +16,13 @@
                             <h2 class="fw-bold mb-2 text-uppercase">Password Recovery</h2>
                             <p class="text-white-50 mb-5">Please enter the email tied to your account.</p>
 
-                            <form action="controller/user/recovery.php" method="post">
+                            <form action="controller/user/recovery2.php" method="post">
                                 <div class="form-outline form-white mb-4">
                                    <input type="email" name="email" id="typeEmailX" class="form-control form-control-lg" />
                                    <label class="form-label" for="typeEmailX">Email</label>
                                 </div>
 
-                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Submit</button>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
                             </form>
                         </div>
 
