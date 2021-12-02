@@ -9,7 +9,7 @@
 				$action = 'search';
 			}
 
-			$exclude_pages = array('register', 'recovery', 'agreement');
+			$exclude_pages = array('register', 'recovery', 'recovery2', 'agreement');
 
 			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && !in_array($action, $exclude_pages)) {
 				$action = 'login';

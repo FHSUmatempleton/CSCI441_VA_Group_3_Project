@@ -8,7 +8,7 @@
                         <div class="mb-md-5 mt-md-4 pb-5">
                             <?php
                                 if(isset($_SESSION['Error'])) {
-                                    echo('<p>Incorrect email.</p>');
+                                    echo '<p>Invalid email.</p>';
                                     unset($_SESSION['Error']);
                                 }
                             ?>

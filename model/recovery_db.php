@@ -42,7 +42,7 @@ function get_recovery_record($userid) {
 function confirm_valid_token($token_key, $current_time) {
     global $db;
     $query =    'SELECT * FROM `password_recovery` WHERE `token_key` = :token_key 
-                AND `:current_time` BETWEEN `start_time` AND `end_time` ';
+                AND :current_time BETWEEN `start_time` AND `end_time` ';
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':token_key', $token_key);

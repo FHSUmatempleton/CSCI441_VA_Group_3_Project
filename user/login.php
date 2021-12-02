@@ -15,6 +15,10 @@
                                 echo('<p>Incorrect email or password.</p>');
                                 unset($_SESSION['Error']);
                             }
+                            if (isset($_SESSION['TokenError'])) {
+                                echo('<p>Invalid/outdated token.</p>');
+                                unset($_SESSION['Error']);
+                            }
                         ?>
 
                         <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
