@@ -61,11 +61,11 @@ function get_all_colors() {
 //**********get all year, url, model, mileage, price in order to display in search results for default cards */
 function get_all_cars($start, $count) {
     global $db;
-    $query = "SELECT year, manufacturer, model, odo, price, id, color, body FROM cars ORDER BY id DESC LIMIT 25";
+    $query = "SELECT * FROM cars ORDER BY id DESC LIMIT :count OFFSET :start";
     try {
         $stmt = $db->prepare($query);
-        // $stmt->bindValue(':start', $start);
-        // $stmt->bindValue(':count', $count);
+        $stmt -> bindValue(':count', $count, PDO::PARAM_INT);
+        $stmt -> bindValue(':start', $start, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -80,7 +80,7 @@ function get_all_cars_count() {
     try {
         $stmt = $db->prepare($query);
         $stmt -> execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return intval($stmt->fetch(PDO::FETCH_ASSOC)["COUNT(*)"]);
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
@@ -165,7 +165,7 @@ function get_cars_count_by_query($make, $priceMin, $priceMax, $odoMin, $odoMax, 
         $stmt -> bindValue(':yearMin', $yearMin);
         $stmt -> bindValue(':yearMax', $yearMax);
         $stmt -> execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return intval($stmt->fetch(PDO::FETCH_ASSOC)["COUNT(*)"]);
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
