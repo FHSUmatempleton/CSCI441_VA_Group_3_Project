@@ -49,7 +49,10 @@ function confirm_valid_token($token_key, $current_time) {
         $stmt->bindValue(':current_time', $current_time);
         $stmt->execute();
         $result = $stmt->fetch();
-        // return # of rows resulted from query
+        if ($result != false) {
+            $result = true;
+        }
+        return $result;
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);

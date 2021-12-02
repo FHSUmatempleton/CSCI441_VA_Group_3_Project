@@ -13,9 +13,11 @@ $token = substr($url, -32);     // retrieve 32 char token at end of url
 $current_time = new DateTime();
 
 //  If token is invalid/expired redirect to login page
+$token = confirm_valid_token($token, $current_time);
+var_dump($token);
 if (!confirm_valid_token($token, $current_time)) {
     array_push($_SESSION['TokenError']);
-    header("Location: /index.php?a=login.php");     
+    header("Location: /index.php?a=login.php");
 }
 
 //  Verify all fields are given.

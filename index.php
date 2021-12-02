@@ -11,7 +11,7 @@
 
 			$exclude_pages = array('register', 'recovery', 'recovery2', 'agreement');
 
-			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && !in_array($action, $exclude_pages)) {
+			if (!isset($_SESSION['login']) && !in_array($action, $exclude_pages)) {
 				$action = 'login';
 			}
 			if ($action == "admin" && (!isset($_SESSION['perms']) || $_SESSION['perms'] < 2)) {
