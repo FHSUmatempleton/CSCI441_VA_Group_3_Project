@@ -57,7 +57,13 @@
 					break;
 				case 'inventory':
 					$PageTitle = "Inventory";
+					array_push($includeCSS, "css/search/search.css");
 					$FileLoc = "inventory/inventory.php";
+					break;
+				case 'editcar':
+					$PageTitle = "Edit Car";
+					array_push($includeCSS, "css/search/search.css");
+					$FileLoc = "inventory/editcar.php";
 					break;
 			}
 			include_once('view/header1.php');
