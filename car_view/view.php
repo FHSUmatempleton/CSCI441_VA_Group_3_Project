@@ -14,18 +14,9 @@ error_reporting(E_ALL);
 	$car = get_car_by_id($id);
 ?>
 
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('images/bg_3.jpg');"
-	data-stellar-background-ratio="0.5">
-	<div class="overlay"></div>
-	<div class="container">
-		<div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-			<div class="col-md-9 ftco-animate pb-5">
-				<h1 class="mb-3 bread">Car Details</h1>
-			</div>
-		</div>
-	</div>
-</section>
-
+<div class="container">
+	<h1 class="mb-3 bread">Car Details</h1>
+</div>
 
 <section class="ftco-section ftco-car-details">
 
@@ -85,7 +76,7 @@ error_reporting(E_ALL);
 				<div class="car-details">
 					<div class="img rounded" style="background-image: url(images/bg_1.jpg);"></div>
 					<div class="text text-center">
-						<h2><?php echo($car['manufacturer'] . " " . $car['model'] . " " . $car['body']);?></h2>
+						<h1><?php echo($car['manufacturer'] . " " . $car['model']);?></h1>
 					</div>
 				</div>
 			</div>
@@ -107,24 +98,7 @@ error_reporting(E_ALL);
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md d-flex align-self-stretch ftco-animate">
-					<div class="media block-6 services">
-						<div class="media-body py-md-4">
-							<div class="d-flex mb-3 align-items-center">
-								<div class="icon d-flex align-items-center justify-content-center"><span
-										class="flaticon-car-seat"></span></div>
-								<div class="text">
-									<h3 class="heading mb-0 pl-3">
-										Color:
-										<span><?php echo($car['color']);?></span>
-									</h3>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md d-flex align-self-stretch ftco-animate">
+			<div class="col-md d-flex align-self-stretch ftco-animate">
 					<div class="media block-6 services">
 						<div class="media-body py-md-4">
 							<div class="d-flex mb-3 align-items-center">
@@ -140,6 +114,40 @@ error_reporting(E_ALL);
 						</div>
 					</div>
 				</div>
+				<div class="col-md d-flex align-self-stretch ftco-animate">
+					<div class="media block-6 services">
+						<div class="media-body py-md-4">
+							<div class="d-flex mb-3 align-items-center">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="flaticon-dashboard"></span></div>
+								<div class="text">
+									<h3 class="heading mb-0 pl-3">
+										Body:
+										<span><?php echo($car['body']);?></span>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="row">
+				<div class="col-md d-flex align-self-stretch ftco-animate">
+					<div class="media block-6 services">
+						<div class="media-body py-md-4">
+							<div class="d-flex mb-3 align-items-center">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="flaticon-car-seat"></span></div>
+								<div class="text">
+									<h3 class="heading mb-0 pl-3">
+										Color:
+										<span><?php echo($car['color']);?></span>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
 				<div class="col-md d-flex align-self-stretch ftco-animate">
 					<div class="media block-6 services">
 						<div class="media-body py-md-4">
@@ -202,10 +210,6 @@ error_reporting(E_ALL);
 					</ul>
 				</div>
 			</div>
-		</div>
-
-		<div class="tab-pane fade" id="pills-manufacturer" role="tabpanel" aria-labelledby="pills-manufacturer-tab">
-			<p> ???</p>
 		</div>
 	</div>
 	</div>
