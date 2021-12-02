@@ -22,7 +22,7 @@
                                    <label class="form-label" for="typeEmailX">Email</label>
                                 </div>
 
-                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">Submit</button>
                             </form>
                         </div>
 
