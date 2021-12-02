@@ -1,5 +1,6 @@
 <?php
-var_dump($_POST);
+    require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
 
 function add_error($type, $field) {
     if (!isset($_SESSION['error'])) {$_SESSION['error'] = array();}
@@ -51,6 +52,31 @@ if (!is_numeric($_POST['seats']) && $_POST['seats'] != "") {
     add_error("InvalidFormat", "seats");
 }
 
+$data = array(
+    "id" => $_POST['id'],
+    "vin" => $_POST['vin'],
+    "year" => $_POST['year'],
+    "make" => $_POST['manufacturer'],
+    "model" => $_POST['model'],
+    "series" => $_POST['series'],
+    "trim" => $_POST['trim'],
+    "condition" => $_POST['cond'],
+    "price" => $_POST['price'],
+    "description" => $_POST['description'],
+    "cylinders" => $_POST['cylinders'],
+    "fuel" => $_POST['fuel'],
+    "odo" => $_POST['odo'],
+    "drivetrain" => $_POST['drivetrain'],
+    "transmission" => $_POST['transmission'],
+    "body" => $_POST['body'],
+    "color" => $_POST['color'],
+    "image_url" => $_POST['image_url'],
+    "doors" => $_POST['doors'],
+    "seats" => $_POST['seats'],
+    "type" => $_POST['type']
+);
 
+modify_car_by_id($data['id'], $data);
+header("Location: /index.php?a=editcar&id=" . $data['id']);
 
 ?>

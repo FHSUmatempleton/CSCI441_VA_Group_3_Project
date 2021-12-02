@@ -12,7 +12,7 @@
     //  To do: fix this vvv
     if (!isset($_POST['email'])) {
         $_SESSION['Error'] = "IncorrectInfo";
-        header("Location: /index.php?a=recovery.php");
+        header("Location: /index.php?a=recovery");
     }
 
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -20,7 +20,7 @@
     //  To do: fix this vvv
     if (!get_account_exists($email)) {
         $_SESSION['Error'] = "IncorrectInfo";
-        header("Location: /index.php?a=recovery.php");
+        header("Location: /index.php?a=recovery"); 
     }
 
     //--------------------------send reset link---------------------------
