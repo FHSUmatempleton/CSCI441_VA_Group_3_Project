@@ -1,10 +1,6 @@
 <?php
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
-
-    if (!isset($_SESSION['login'])) {
-        header("Location: /index.php");
-    }
 ?>
 
 <div id="wrapper">
