@@ -82,8 +82,8 @@ error_reporting(E_ALL);
     $start = ($page - 1) * $carsPerPage;
     $count = $carsPerPage;
     $all_results = get_cars_by_query($start, $count, $makeSQL, $priceMin, $priceMax, $odoMin, $odoMax, $yearMin, $yearMax, $bodySQL, $colorSQL);
-    $queryCount = intval(get_cars_count_by_query($makeSQL, $priceMin, $priceMax, $odoMin, $odoMax, $yearMin, $yearMax, $bodySQL, $colorSQL)["COUNT(*)"]);
-    $allCount = intval(get_all_cars_count()["COUNT(*)"]);
+    $queryCount = get_cars_count_by_query($makeSQL, $priceMin, $priceMax, $odoMin, $odoMax, $yearMin, $yearMax, $bodySQL, $colorSQL);
+    $allCount = get_all_cars_count();
 
    //$test = get_car_by_color(0,25);
 
