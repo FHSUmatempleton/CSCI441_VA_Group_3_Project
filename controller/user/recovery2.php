@@ -14,7 +14,7 @@ $current_time = new DateTime();
 
 //  If token is invalid/expired redirect to login page
 if (!confirm_valid_token($token, $current_time)) {
-    array_push($_SESSION['Error'], "Invalid/outdated token");
+    array_push($_SESSION['TokenError']);
     header("Location: /index.php?a=login.php");     
 }
 

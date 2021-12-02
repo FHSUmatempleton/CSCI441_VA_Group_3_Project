@@ -9,18 +9,18 @@
 
     $debug = true;
 
-    //  To do: fix this vvv
-    if (!isset($_POST['email'])) {
-        $_SESSION['Error'] = "IncorrectInfo";
-        header("Location: /index.php?a=recovery.php");
-    }
-
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
-    //  To do: fix this vvv
-    if (!get_account_exists($email)) {
+    if (!isset($_POST['email'])) {
         $_SESSION['Error'] = "IncorrectInfo";
-        header("Location: /index.php?a=recovery.php");
+        header("Location: /index.php?a=recovery");
+        exit();
+    }
+
+    if (!get_account_exists($email)) {
+        $_SESSION['Error'] = "Unregistered";
+        header("Location: /index.php?a=recovery");
+        exit();
     }
 
     //--------------------------send reset link---------------------------
@@ -40,7 +40,11 @@
         //  Password reset link
         $token = $record['token_key'];
 
-        $url = 'https://web.gelat.in/index.php?a=recovery2&h='.$token;
+        if ($debug) {
+            $url = 'localhost/index.php?a=recovery2&h='.$token;
+        } else {
+            $url = 'https://web.gelat.in/index.php?a=recovery2&h='.$token;
+        }
         
         //  Send mail
         if ($debug) {
@@ -51,5 +55,4 @@
     
     
     //----------------------------------------------------------------
-
 ?>
