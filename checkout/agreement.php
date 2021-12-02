@@ -65,15 +65,14 @@
                     <div class="car-details">
                         <img src="<?php echo $car['image_url']; ?>" width='70' height='30' />
                         <div class="text text-center">
-                            <h2><?php echo($car['manufacturer'] . " " . $car['model'] . " " . $car['body']);?></h2>
+                            <h2><?php echo($car['manufacturer'] . " " . $car['model']);?></h2>
                         </div>
                     </div>
                 </div>
             </div>
             <p>
-                This car purchase agreement has been entered into as of [Agreement.Date] between Cartana Inc. (Seller)
-                and <?php echo($car['manufacturer'] . " " . $car['model'] . " " . $car['body']);?>
-                [Client.FirstName][Client.LastName] (Buyer).
+                This car purchase agreement has been entered into as of <?php echo date("m/d/y") ?> between Cartana Inc. (Seller)
+                and <?php echo($account['f_name'] . " " . $account['l_name']);?> (Buyer).
             </p>
             <h3>Payment</h3>
             <p>
@@ -222,15 +221,14 @@
             </p>
             <p>
                 <li>Cartana Inc</li>
-                <li>Signature</li>
-                <li>MM/DD/YYYY</li>
                 <li>[Sender.FirstName][Sender.LastName]</li>
+                <li>Signature</li>
+                <li><?php echo date("m/d/y") ?></li>
             </p>
             <p>
-                <li>[Client.Company]</li>
+                <li><?php echo($account['f_name'] . " " . $account['l_name']);?></li>
                 <li>Signature</li>
-                <li>MM/DD/YYYY</li>
-                <li>[Client.FirstName][Client.LastName]</li>
+                <li><?php echo date("m/d/y") ?></li>
             </p>
 
             <div class="row">
@@ -308,13 +306,6 @@
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p>Copyright &copy;<script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved</p>
                 </div>
             </div>
         </div>
