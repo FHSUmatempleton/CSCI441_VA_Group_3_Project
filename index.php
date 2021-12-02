@@ -9,7 +9,7 @@
 				$action = 'search';
 			}
 
-			$exclude_pages = array('register', 'recovery', 'recovery2');
+			$exclude_pages = array('register', 'recovery', 'recovery2', 'agreement');
 
 			if (!isset($_SESSION['login']) && !isset($_COOKIE['login']) && !in_array($action, $exclude_pages)) {
 				$action = 'login';
@@ -61,7 +61,17 @@
 					break;
 				case 'inventory':
 					$PageTitle = "Inventory";
+					array_push($includeCSS, "css/search/search.css");
 					$FileLoc = "inventory/inventory.php";
+					break;
+				case 'editcar':
+					$PageTitle = "Edit Car";
+					array_push($includeCSS, "css/search/search.css");
+					$FileLoc = "inventory/editcar.php";
+					break;
+				case 'agreement':
+					$PageTitle = "Purchase Agreement";
+					$FileLoc = "checkout/agreement.php";
 					break;
 			}
 			include_once('view/header1.php');
