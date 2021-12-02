@@ -9,6 +9,7 @@
     
     $hash = $_SESSION['login'];
     $account = get_account_by_hash($hash);
+    $car = get_car_by_id(3);
 ?>
 
 
