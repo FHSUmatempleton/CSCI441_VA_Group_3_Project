@@ -63,7 +63,6 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div class="car-details">
-                        <img src="<?php echo $car['image_url']; ?>" width='70' height='30' />
                         <div class="text text-center">
                             <h2><?php echo($car['manufacturer'] . " " . $car['model']);?></h2>
                         </div>
@@ -129,7 +128,7 @@
                 Seller desires to sell the vehicle described above, Buyer accepts the above mentioned vehicle and agrees
                 to price and delivery of the “Acquired Vehicle”,
                 under the terms and conditions set forth below; Buyer shall take possession of same, as agreed between
-                both parties on or before (Delivery Date”).
+                both parties on or before “Delivery Date”.
                 If delivery is to be made at a date after the execution of this contract, acquired vehicle will be
                 delivered in the same condition as inspection condition.
                 Seller is responsible for the execution all documents presented by Buyer which are necessary to transfer
@@ -207,12 +206,12 @@
             </p>
             <h3>Exclusive Jurisdiction</h3>
             <p>
-                The Parties, by entering into this agreement, submit to jurisdiction in [Transaction.State] for
+                The Parties, by entering into this agreement, submit to jurisdiction in <?php echo($account['state']);?> for
                 adjudication of any disputes and/or claims between the parties under this agreement.
-                Furthermore, the parties hereby agree that the courts of [Transaction.State] shall have exclusive
+                Furthermore, the parties hereby agree that the courts of <?php echo($account['state']);?> shall have exclusive
                 jurisdiction over any disputes between the parties relative to this agreement,
                 whether said disputes sound in contract, tort, or other areas of the law. This Agreement shall be
-                interpreted under, and governed by, the laws of the state of [Transaction.State].
+                interpreted under, and governed by, the laws of the state of <?php echo($account['state']);?>.
             </p>
             <h3>Acceptance</h3>
             <p>
@@ -221,7 +220,6 @@
             </p>
             <p>
                 <li>Cartana Inc</li>
-                <li>[Sender.FirstName][Sender.LastName]</li>
                 <li>Signature</li>
                 <li><?php echo date("m/d/y") ?></li>
             </p>
