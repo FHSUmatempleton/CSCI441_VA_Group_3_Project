@@ -8,21 +8,19 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 $debug = false;
+$errors = false;
 
-$url = 'https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$token = substr($url, -32);     // retrieve 32 char token at end of url
+$token = filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING);
 $current_time = new DateTime();
 
 //  If token is invalid/expired redirect to login page
-$token = confirm_valid_token($token, $current_time);
-var_dump($token);
-if (!confirm_valid_token($token, $current_time)) {
-    array_push($_SESSION['TokenError']);
-    header("Location: /index.php?a=login.php");
+if (!confirm_valid_token($token, $current_time->format('Y-m-d H:i:s'))) {
+    $_SESSION['TokenError'] = true;
+    header("Location: /index.php?a=login");
+    exit();
 }
 
 //  Verify all fields are given.
-$errors = false;
 if (
     !isset($_POST['curPassword']) || !isset($_POST['newPassword'])
     || !isset($_POST['confirmPass'])
@@ -44,7 +42,8 @@ if (!isset($_POST['confirmPass'])) {
 $account = get_account_by_hash($_SESSION['login']);
 if (!confirm_account($account['email'], $_POST['curPassword'])) {
     $_SESSION['Error'] = "InvalidPass";
-    header("Location: /index.php?a=recovery2");
+    // header("Location: /index.php?a=recovery2");
+    exit();
 }
 
 if ($errors) {
@@ -53,7 +52,7 @@ if ($errors) {
         echo("<p>" . var_dump($_SESSION['ErrorFields']) . "</p>");
         echo("<p>" . var_dump($_POST) . "</p>");
     } else {
-        header("Location: /index.php?a=recovery2");
+        // header("Location: /index.php?a=recovery2");
     }
     exit();
 }
@@ -64,7 +63,7 @@ if ($_POST['newPassword'] != $_POST['confirmPass']) {
         echo('<p>Passwords don\'t match.</p>');
     } else {
         $_SESSION['Error'] = "NoMatch";
-        header("Location: /index.php?a=recovery2");
+        // header("Location: /index.php?a=recovery2");
     }
     exit();
 }
@@ -85,7 +84,7 @@ if ($complexity < 3 || strlen($info['newPassword']) < 8) {
         echo('<p>Password not complex enough.</p>');
     } else {
         $_SESSION['Error'] = "InsecurePass";
-        header("Location: /index.php?a=recovery2");
+        // header("Location: /index.php?a=recovery2");
     }
     exit();
 }
@@ -100,7 +99,7 @@ if ($debug) {
 } else {
     update_password($_SESSION['login'], $phash);
     $_SESSION['Registered'] = true;
-    header("Location: /index.php?a=recovery2");
+    // header("Location: /index.php?a=recovery2");
 }
 
 

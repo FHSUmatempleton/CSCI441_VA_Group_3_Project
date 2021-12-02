@@ -11,12 +11,11 @@
 
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
-    if (!isset($_POST['email'])) {
-        $_SESSION['Error'] = "IncorrectInfo";
+    if (empty($_POST['email'])) {
+        $_SESSION['Error'] = "NoField";
         header("Location: /index.php?a=recovery");
         exit();
     }
-
     if (!get_account_exists($email)) {
         $_SESSION['Error'] = "Unregistered";
         header("Location: /index.php?a=recovery");

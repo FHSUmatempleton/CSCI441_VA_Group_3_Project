@@ -33,6 +33,7 @@
 					break;
 				case 'recovery2':
 					$PageTitle = "Password Recovery";
+					array_push($includeCSS, "css/login/register.css");
 					$FileLoc = "user/recovery2.php";
 					break;
 				case 'profile':

@@ -1,18 +1,13 @@
-<?php
-    require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
-?>
-
 <div id="wrapper">
     <main>
         <?php 
+        require_once($_SERVER['DOCUMENT_ROOT'].'/controller/user/recovery2.php');
     if (array_key_exists('errors', $_POST)) {
         $errors = $_POST['errors'];
     }
 ?>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
 <section class="vh-100 gradient-custom">
 <div class="container py-5 h-70">
     <div class="row d-flex justify-content-center align-items-center h-100">
