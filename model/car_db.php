@@ -15,7 +15,7 @@ function get_car_by_id($id) {
     }
 }
 
-function modify_car_by_id($id, $data) {
+function modify_car_by_id($id, $array) {
     global $db;
     $query = "UPDATE `cars` SET "
             . "vin = :vin, "
@@ -23,8 +23,8 @@ function modify_car_by_id($id, $data) {
             . "manufacturer = :make, "
             . "model = :model, "
             . "series = :series, "
-            . "trim = :trim, "
-            . "condition = :condition, "
+            . "`trim` = :tri, "
+            . "cond = :cond, "
             . "price = :price, "
             . "description = :description, "
             . "cylinders = :cylinders, "
@@ -41,14 +41,27 @@ function modify_car_by_id($id, $data) {
             . "WHERE id = :id";
     try {
         $stmt = $db->prepare($query);
-        $stmt->bindValue(':fname',     $array['fname']);
-        $stmt->bindValue(':lname',     $array['lname']);
-        $stmt->bindValue(':addr',      $array['addr']);
-        $stmt->bindValue(':state',     $array['state']);
-        $stmt->bindValue(':zip',       $array['zip']);
-        $stmt->bindValue(':phone',     $array['phone']);
-        $stmt->bindValue(':email',     $array['email']);
-        $stmt->bindValue(':lhash',     $array['hash']);
+        $stmt->bindValue(':vin',     $array['vin']);
+        $stmt->bindValue(':year',     $array['year']);
+        $stmt->bindValue(':make',     $array['make']);
+        $stmt->bindValue(':model',     $array['model']);
+        $stmt->bindValue(':series',     $array['series']);
+        $stmt->bindValue(':tri',     $array['trim']);
+        $stmt->bindValue(':cond',     $array['condition']);
+        $stmt->bindValue(':price',     $array['price']);
+        $stmt->bindValue(':description',     $array['description']);
+        $stmt->bindValue(':cylinders',     $array['cylinders']);
+        $stmt->bindValue(':fuel',     $array['fuel']);
+        $stmt->bindValue(':odo',     $array['odo']);
+        $stmt->bindValue(':drivetrain',     $array['drivetrain']);
+        $stmt->bindValue(':transmission',     $array['transmission']);
+        $stmt->bindValue(':body',     $array['body']);
+        $stmt->bindValue(':color',     $array['color']);
+        $stmt->bindValue(':url',     $array['image_url']);
+        $stmt->bindValue(':doors',     $array['doors']);
+        $stmt->bindValue(':seats',     $array['seats']);
+        $stmt->bindValue(':type',     $array['type']);
+        $stmt->bindValue(':id',     $id);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {

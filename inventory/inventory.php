@@ -45,8 +45,9 @@
                     </tr>
                 </thead>
                 <?php foreach ($cars as $car): ?>
-                <form action="index.php?a=editcar&id=<?php echo $car["id"]?>" method="post">
-                    <tr>
+
+                <tr>
+                    <form action="index.php?a=editcar&id=<?php echo $car["id"]?>" method="post">
                         <td>
                             <?php echo $car["id"]; ?>
                         </td>
@@ -80,8 +81,8 @@
                         <td>
                             <input type="submit" value="Edit">
                         </td>
-                </form>
 
+                    </form>
                 </tr>
                 <?php endforeach; ?>
             </table>

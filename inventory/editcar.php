@@ -6,10 +6,10 @@
 	require_once($_SERVER['DOCUMENT_ROOT'].'/model/search_db.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
 
-	if (!isset($_POST['id'])) {
+	if (!isset($_GET['id'])) {
 		$id = 3;
 	} else {
-		$id = $_POST['id'];
+		$id = $_GET['id'];
 	}
     
     if (get_perms_by_hash($_SESSION['login']) < 1) {
@@ -41,6 +41,7 @@
                 <form action="controller/inventory/editcar.php" method="POST">
                     <tr>
                         <td>ID</td>
+                        <input name="id" id="id" value="<?php echo $car['id'];?>" hidden></input>
                         <td><?php echo $car['id'];?></td>
                     </tr>
                     <tr>
@@ -61,7 +62,7 @@
                                     <?php if ($row["manufacturer"] == $car['manufacturer']) { echo "selected"; }?>>
                                     <?php echo (ucfirst($row["manufacturer"])) ?>
                                 </option>
-                                <?php endforeach;   ?>
+                                <?php endforeach; ?>
                             </select>
                         </td>
                     </tr>
@@ -113,9 +114,9 @@
                                 value="<?php echo $car['transmission'];?>"></input></td>
                     </tr>
                     <tr>
-                        <td>Body</td>
+                        <td>Color</td>
                         <td>
-                            <select id="body_search" name="body">
+                            <select id="color_search" name="color">
                                 <option value="all" hidden>Body Type</option>
                                 <?php foreach ($colors as $row): ?>
                                 <option value="<?php echo $row["color"] ?>"
@@ -127,9 +128,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Color</td>
+                        <td>Body</td>
                         <td>
-                            <select id="color_search" name="color">
+                            <select id="body_search" name="body">
                                 <option value="all" hidden>Color</option>
                                 <?php foreach ($bodytypes as $row): ?>
                                 <option value="<?php echo $row["body"] ?>"
