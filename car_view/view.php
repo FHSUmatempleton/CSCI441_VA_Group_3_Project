@@ -13,9 +13,32 @@ error_reporting(E_ALL);
 	
 	$car = get_car_by_id($id);
 ?>
+<!--temp place for Purchase Now button style -->
+<style>
+	#purchaseNowButton{
+		padding: 6px 8px 6px 16px;
+		text-decoration: none;
+		
+		font-size: 25px;
+		font-weight: bolder;
+		color: indianred;
+		display: block;
+		border: groove 7px lightgrey;
+		margin-left: 84%;
+		margin-bottom: 10px;
+	}
 
+	#purchaseNowButton:hover {
+		box-shadow: 0 0 10px indianred; 
+	}
+</style>
 <div class="container">
 	<h1 class="mb-3 bread">Car Details</h1>
+	<!--Purchase Now button--> 
+	<div>
+		<button id="purchaseNowButton" onclick="location='/purchase/main.php'">Purchase Now</button> 
+		
+	</div>
 </div>
 
 <section class="ftco-section ftco-car-details">
