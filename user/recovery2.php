@@ -46,11 +46,6 @@
 
                 <h2 class="fw-bold mb-2 text-uppercase">Password Change</h2>
 
-                <div class="form-outline row form-white mb-5">
-                    <input type="password" name="curPassword" id="curPassword" class="form-control form-control-lg" />
-                    <label class="form-label" for="curPassword">Current Password</label>
-                </div>
-
                 <div class="form-outline row form-white">
                     <input type="password" name="newPassword" id="newPassword" class="form-control form-control-lg" />
                     <label class="form-label" for="newPassword">New Password</label>

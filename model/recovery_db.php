@@ -1,5 +1,5 @@
 <?php
-function create_recovery_record($userid) {
+function create_recovery_record($email) {
     global $db;
 
     // Generate token key...
@@ -9,11 +9,11 @@ function create_recovery_record($userid) {
     $start_time = new DateTime();
     $end_time = (clone $start_time)->add(new DateInterval('PT1H'));    // expiration = 1 hour
 
-    $query =    'INSERT INTO password_recovery (token_key, start_time, end_time, userid)
-                VALUES (:token_key, :start_time, :end_time, :userid)';
+    $query =    'INSERT INTO password_recovery (token_key, start_time, end_time, email)
+                VALUES (:token_key, :start_time, :end_time, :email)';
     try {
         $stmt = $db->prepare($query);
-        $stmt->bindValue(':userid', $userid);
+        $stmt->bindValue(':email', $email);
         $stmt->bindValue(':token_key', $token_key);
         $stmt->bindValue(':start_time', $start_time->format('Y-m-d H:i:s'));
         $stmt->bindValue(':end_time', $end_time->format('Y-m-d H:i:s'));
@@ -24,15 +24,30 @@ function create_recovery_record($userid) {
     }
 }
 
-function get_recovery_record($userid) {
+function get_recovery_record($email) {
     global $db;
-    $query = 'SELECT * FROM `password_recovery` WHERE `userid` = :userid';
+    $query = 'SELECT * FROM `password_recovery` WHERE `email` = :email';
     try {
         $stmt = $db->prepare($query);
-        $stmt->bindValue(':userid', $userid);
+        $stmt->bindValue(':email', $email);
         $stmt->execute();
         $record = $stmt->fetch();
         return $record;
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function get_rrecord_email($token_key) {
+    global $db;
+    $query = 'SELECT email FROM `password_recovery` WHERE `token_key` = :token_key';
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':token_key', $token_key);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);

@@ -21,29 +21,17 @@ if (!confirm_valid_token($token, $current_time->format('Y-m-d H:i:s'))) {
 }
 
 //  Verify all fields are given.
-if (
-    !isset($_POST['curPassword']) || !isset($_POST['newPassword'])
-    || !isset($_POST['confirmPass'])
-    ) {
+if (!isset($_POST['newPassword']) || !isset($_POST['confirmPass'])) {
     $_SESSION['Error'] = "NoField";
     $_SESSION['ErrorFields'] = array();
     $errors = true;
 }
-if (!isset($_POST['curPassword'])) {
-    array_push($_SESSION['ErrorFields'], "Current Password");
-}
+
 if (!isset($_POST['newPassword'])) {
     array_push($_SESSION['ErrorFields'], "New Password");
 }
 if (!isset($_POST['confirmPass'])) {
     array_push($_SESSION['ErrorFields'], "Password Confirmation");
-}
-
-$account = get_account_by_hash($_SESSION['login']);
-if (!confirm_account($account['email'], $_POST['curPassword'])) {
-    $_SESSION['Error'] = "InvalidPass";
-    // header("Location: /index.php?a=recovery2");
-    exit();
 }
 
 if ($errors) {
@@ -89,15 +77,19 @@ if ($complexity < 3 || strlen($info['newPassword']) < 8) {
     exit();
 }
 
+//  Retrieve email from recovery record
+$email = get_rrecord_email($token);
+
+//  Generate login hash
+$lhash = set_login_hash($email);
+
 // Generate hash using PHP password_hash, which includes salt by default
 $phash = password_hash($info['newPassword'], PASSWORD_DEFAULT);
-
-// Send email here.
 
 if ($debug) {
     echo('<p>Attempted to register account</p>');
 } else {
-    update_password($_SESSION['login'], $phash);
+    update_password($lhash, $phash);
     $_SESSION['Registered'] = true;
     // header("Location: /index.php?a=recovery2");
 }
