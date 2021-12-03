@@ -74,6 +74,12 @@
 					$PageTitle = "Purchase Agreement";
 					$FileLoc = "checkout/agreement.php";
 					break;
+
+				case 'purchase': //added purchase HC
+					$PageTitle = "Purchase Car";
+					array_push($includeCSS, "css/search/search.css");
+					$FileLoc = "purhcase/main.php";
+					break;
 			}
 			include_once('view/header1.php');
 			foreach ($includeCSS as $cssFile): ?>
