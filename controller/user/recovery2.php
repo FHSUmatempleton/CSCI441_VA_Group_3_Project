@@ -11,14 +11,7 @@ $debug = false;
 $errors = false;
 
 $token = filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING);
-$current_time = new DateTime();
-
-//  If token is invalid/expired redirect to login page
-if (!confirm_valid_token($token, $current_time->format('Y-m-d H:i:s'))) {
-    $_SESSION['TokenError'] = true;
-    header("Location: /index.php?a=login");
-    exit();
-}
+$loc = '/index.php?a=recovery2?h='.$token;
 
 //  Verify all fields are given.
 if (!isset($_POST['newPassword']) || !isset($_POST['confirmPass'])) {
@@ -40,7 +33,7 @@ if ($errors) {
         echo("<p>" . var_dump($_SESSION['ErrorFields']) . "</p>");
         echo("<p>" . var_dump($_POST) . "</p>");
     } else {
-        // header("Location: /index.php?a=recovery2");
+        header("Location: `{$loc}`");
     }
     exit();
 }
@@ -51,7 +44,7 @@ if ($_POST['newPassword'] != $_POST['confirmPass']) {
         echo('<p>Passwords don\'t match.</p>');
     } else {
         $_SESSION['Error'] = "NoMatch";
-        // header("Location: /index.php?a=recovery2");
+        header("Location: `{$loc}`");
     }
     exit();
 }
@@ -72,7 +65,7 @@ if ($complexity < 3 || strlen($info['newPassword']) < 8) {
         echo('<p>Password not complex enough.</p>');
     } else {
         $_SESSION['Error'] = "InsecurePass";
-        // header("Location: /index.php?a=recovery2");
+        header("Location: `{$loc}`");
     }
     exit();
 }
@@ -91,7 +84,7 @@ if ($debug) {
 } else {
     update_password($lhash, $phash);
     $_SESSION['Registered'] = true;
-    // header("Location: /index.php?a=recovery2");
+    header("Location: `{$loc}`");
 }
 
 
