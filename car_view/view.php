@@ -36,7 +36,7 @@ error_reporting(E_ALL);
 	<h1 class="mb-3 bread">Car Details</h1>
 	<!--Purchase Now button--> 
 	<div>
-		<button id="purchaseNowButton" onclick="location='/purchase/main.php'">Purchase Now</button> 
+		<button id="purchaseNowButton" onclick="location='index.php?a=purchase'">Purchase Now</button> 
 		
 	</div>
 </div>
