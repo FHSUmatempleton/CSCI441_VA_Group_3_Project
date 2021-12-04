@@ -24,9 +24,6 @@
         $errors = $_POST['errors'];
     }
 ?>
-
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
         <section style="height: 100%">
             <table class="table" style="width: 98%; margin: 0px auto;" id="sortTable">
                 <thead>
