@@ -76,6 +76,8 @@
                                             <p id="password-confirm-text"></p>
                                         </div>
 
+                                        <input type="hidden" name="token" id="token" value=<?php echo $token; ?> />
+
                                         <button class="btn btn-outline-light btn-lg px-5" id="submitButton" type="submit" disabled>Submit</button>
                                     </div>
                                 </form>
@@ -87,4 +89,4 @@
         </section>
     </main>
 </div>
-<script src="js/login/recovery2.js"></script>
+<script src="js/login/changepass.js"></script>

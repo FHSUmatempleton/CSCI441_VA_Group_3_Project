@@ -26,7 +26,7 @@ function create_recovery_record($email) {
 
 function get_recovery_record($email) {
     global $db;
-    $query = 'SELECT * FROM `password_recovery` WHERE `email` = :email';
+    $query = 'SELECT * FROM `password_recovery` WHERE `email` = :email ORDER BY id DESC';
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':email', $email);
@@ -41,13 +41,13 @@ function get_recovery_record($email) {
 
 function get_rrecord_email($token_key) {
     global $db;
-    $query = 'SELECT email FROM `password_recovery` WHERE `token_key` = :token_key';
+    $query = 'SELECT email FROM `password_recovery` WHERE `token_key` = :token_key ORDER BY id DESC';
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':token_key', $token_key);
         $stmt->execute();
         $result = $stmt->fetch();
-        return $result;
+        return strval($result['email']);
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);

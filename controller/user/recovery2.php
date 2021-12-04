@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 $debug = false;
 $errors = false;
 
-$token = filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING);
+$token = $_POST['token'];
 $loc = '/index.php?a=recovery2?h='.$token;
 
 //  Verify all fields are given.
@@ -80,11 +80,11 @@ $lhash = set_login_hash($email);
 $phash = password_hash($info['newPassword'], PASSWORD_DEFAULT);
 
 if ($debug) {
-    echo('<p>Attempted to register account</p>');
+    echo('<p>Attempted to update password</p>');
 } else {
     update_password($lhash, $phash);
     $_SESSION['Registered'] = true;
-    header("Location: `{$loc}`");
+    header("Location: /index.php?a=login");
 }
 
 
