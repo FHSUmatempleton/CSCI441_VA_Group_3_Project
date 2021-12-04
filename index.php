@@ -77,8 +77,8 @@
 
 				case 'purchase': //added purchase HC
 					$PageTitle = "Purchase Car";
-					array_push($includeCSS, "css/search/search.css");
-					$FileLoc = "purhcase/main.php";
+					array_push($includeCSS, "/css/purchase/purchase.css");
+					$FileLoc = "purchase/main.php";
 					break;
 			}
 			include_once('view/header1.php');
