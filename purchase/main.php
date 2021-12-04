@@ -76,6 +76,12 @@ body {
 }
 
 </style>
+
+<html>
+    <!--bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</html>
+
 <!----------include files to get id of car and to mirror car info from view page-->
 <?php
 ini_set('display_errors', 1);
@@ -101,8 +107,8 @@ error_reporting(E_ALL);
      //   header("Location: /purchase/main.php"); 
     //}
     
-    //$hash = $_SESSION['login'];
-    //$account = get_account_by_hash($hash);
+    $hash = $_SESSION['login'];
+    $account = get_account_by_hash($hash);
 ?>
 <!--------------------------------------------------------------------------------HTML------------------------------------------------------------------------->
 
