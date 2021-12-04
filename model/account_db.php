@@ -187,3 +187,30 @@ function get_perms_by_hash($hash) {
         display_db_error($err);
     }
 }
+
+function get_all_users() {
+    global $db;
+    $query = 'SELECT * FROM `users`';
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function set_perms($id, $perms) {
+    global $db;
+    $query = 'UPDATE `users` SET `perms` = :perms WHERE `id` = :id';
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':perms', $perms);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}

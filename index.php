@@ -58,6 +58,7 @@
 					break;
 				case 'admin':
 					$PageTitle = "Admin";
+					array_push($includeCSS, "css/search/search.css");
 					$FileLoc = "admin/admin.php";
 					break;
 				case 'inventory':
@@ -78,7 +79,7 @@
 				case 'purchase': //added purchase HC
 					$PageTitle = "Purchase Car";
 					array_push($includeCSS, "css/search/search.css");
-					$FileLoc = "purhcase/main.php";
+					$FileLoc = "purchase/main.php";
 					break;
 			}
 			include_once('view/header1.php');
