@@ -17,7 +17,7 @@
                             }
                             if (isset($_SESSION['TokenError'])) {
                                 echo('<p>Invalid/outdated token.</p>');
-                                unset($_SESSION['Error']);
+                                unset($_SESSION['TokenError']);
                             }
                         ?>
 

@@ -143,21 +143,6 @@ function set_login_hash($email) {
     }
 }
 
-function get_account_userid($email) {
-    global $db;
-    $query = 'SELECT id FROM `users` WHERE `email` = :email';
-    try {
-        $stmt = $db->prepare($query);
-        $stmt->bindValue(':email', $email);
-        $stmt->execute();
-        $userid = $stmt->fetch();
-        return intval($userid['id']);
-    } catch (PDOException $e) {
-        $err = $e->getMessage();
-        display_db_error($err);
-    }
-}
-
 function get_account_by_hash($hash) {
     global $db;
     $query = 'SELECT * FROM `users` WHERE `login_hash` = :lhash';
@@ -182,6 +167,33 @@ function get_perms_by_hash($hash) {
         $stmt->execute();
         $account = $stmt->fetch();
         return intval($account["perms"]);
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function get_all_users() {
+    global $db;
+    $query = 'SELECT * FROM `users`';
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function set_perms($id, $perms) {
+    global $db;
+    $query = 'UPDATE `users` SET `perms` = :perms WHERE `id` = :id';
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':perms', $perms);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
