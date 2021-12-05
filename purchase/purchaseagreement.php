@@ -13,46 +13,6 @@
 ?>
 
 
-<head>
-    <title>Cartana</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/ionicons.min.css">
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-
-</head>
-
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Cartana</span></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="search.html" class="nav-link">Search</a></li>
-                    <li class="nav-item"><a href="financing.html" class="nav-link">Financing</a></li>
-                    <li class="nav-item active"><a href="cars.html" class="nav-link">Cars</a></li>
-                    <li class="nav-item"><a href="revies.html" class="nav-link">Reviews</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact us</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- END nav -->
 
     <div class="container">
         <h1 class="mb-3 bread">Car Purchase Agreement</h1>
@@ -64,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="car-details">
                         <div class="text text-center">
-                            <h2><?php echo($car['manufacturer'] . " " . $car['manufacturer'] . " " . $car['model']);?></h2>
+                            <h2><?php echo($car['year'] . " " . $car['manufacturer'] . " " . $car['model']);?></h2>
                         </div>
                     </div>
                 </div>
@@ -248,67 +208,7 @@
                             </ul>
                         </div>
 
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade" id="pills-manufacturer" role="tabpanel"
-                                aria-labelledby="pills-manufacturer-tab">
-                                <p> ???</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2"><a href="#" class="logo">Cartana</span></a></h2>
-                        <p> ???</p>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4 ml-md-5">
-                        <h2 class="ftco-heading-2">Information</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">About</a></li>
-                            <li><a href="#" class="py-2 d-block">Term and Conditions</a></li>
-                            <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Customer Support</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                            <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                            <li><a href="#" class="py-2 d-block">How it works</a></li>
-                            <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Have a Questions?</h2>
-                        <div class="block-23 mb-3">
-                            <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">Address</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">Phone</span></a>
-                                </li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span
-                                            class="text">info@gmail.com</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+                        
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/jquery.waypoints.min.js"></script>
