@@ -14,8 +14,8 @@
   position: relative;
   background-color: lightgrey;
   color: black;
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  /*height: 100%;*/
   margin: auto;
   border: 1px ridge white;
 }
@@ -33,7 +33,7 @@ body {
 }
 /***********side navigation********/
 .sidenav {
-  height: 100%;
+  /*height: auto;*/
   margin-left: 20%;
   width: 15%; /*width of nav page*/
   position: fixed;
@@ -72,5 +72,35 @@ body {
 /*************PERSONAL INFO ******/
 .form-group{
     font-size: 1.5vw;
+}
+
+
+  /************DELIVERY OR PICKUP PAGE*************/
+.option_div{
+    
+    border:2px ridge white;
+    width:100%;
+    background-color: rgb(243, 216, 216);
+    padding: 10px;
+
+  }
+.transport_header{
+  background-color: gray;
+  margin:-10px;
+  margin-left: -30px;
+  padding-top: 1px;
+  height: 50px;
+  border: 2px ridge white;
+  
+}
+#transport{
+    color: indianred;
+    font-weight: bolder;
+    margin-left: 20px;
+}
+/********label for radio button**** */
+.option_label{
+    border: 1px;
+    font-weight: bold;
 }
 
