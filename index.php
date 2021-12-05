@@ -75,11 +75,36 @@
 					$FileLoc = "checkout/agreement.php";
 					break;
 
-				case 'purchase': //added purchase HC
+				case 'purchase': //purchase HC
 					$PageTitle = "Purchase Car";
-					array_push($includeCSS, "/css/purchase/purchase.css");
+					array_push($includeCSS, "/css/purchase/purchase.css"); 
 					$FileLoc = "purchase/main.php";
 					break;
+				case 'transport': //delivery or pick up page HC
+					$PageTitle = "Purchase Car";
+					array_push($includeCSS, "/css/purchase/purchase.css");
+					$FileLoc = "purchase/transport.php";
+					break;
+				case 'review': //review page HC
+					$PageTitle = "Purchase Car";
+					array_push($includeCSS, "/css/purchase/purchase.css");
+					$FileLoc = "purchase/review.php";
+					break;
+				case 'finalize': //finalize payment page HC
+					$PageTitle = "Purchase Car";
+					array_push($includeCSS, "/css/purchase/purchase.css");
+					$FileLoc = "purchase/finalize.php";
+					break;
+				case 'payment': //payment page HC
+					$PageTitle = "Purchase Car";
+					array_push($includeCSS, "/css/purchase/purchase.css");
+					$FileLoc = "purchase/payment.php";
+					break;
+				case 'purchaseagreement': //purchase agreement HC
+						$PageTitle = "Purchase Agreement";
+						array_push($includeCSS, "/css/purchase/purchase.css");
+						$FileLoc = "purchase/purchaseagreement.php"; 
+						break;
 			}
 			include_once('view/header1.php');
 			foreach ($includeCSS as $cssFile): ?>
