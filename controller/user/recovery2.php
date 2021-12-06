@@ -10,40 +10,21 @@ error_reporting(E_ALL);
 $debug = false;
 $errors = false;
 
-$token = filter_input(INPUT_GET, 'h', FILTER_SANITIZE_STRING);
-$current_time = new DateTime();
-
-//  If token is invalid/expired redirect to login page
-if (!confirm_valid_token($token, $current_time->format('Y-m-d H:i:s'))) {
-    $_SESSION['TokenError'] = true;
-    header("Location: /index.php?a=login");
-    exit();
-}
+$token = $_POST['token'];
+$loc = '/index.php?a=recovery2?h='.$token;
 
 //  Verify all fields are given.
-if (
-    !isset($_POST['curPassword']) || !isset($_POST['newPassword'])
-    || !isset($_POST['confirmPass'])
-    ) {
+if (!isset($_POST['newPassword']) || !isset($_POST['confirmPass'])) {
     $_SESSION['Error'] = "NoField";
     $_SESSION['ErrorFields'] = array();
     $errors = true;
 }
-if (!isset($_POST['curPassword'])) {
-    array_push($_SESSION['ErrorFields'], "Current Password");
-}
+
 if (!isset($_POST['newPassword'])) {
     array_push($_SESSION['ErrorFields'], "New Password");
 }
 if (!isset($_POST['confirmPass'])) {
     array_push($_SESSION['ErrorFields'], "Password Confirmation");
-}
-
-$account = get_account_by_hash($_SESSION['login']);
-if (!confirm_account($account['email'], $_POST['curPassword'])) {
-    $_SESSION['Error'] = "InvalidPass";
-    // header("Location: /index.php?a=recovery2");
-    exit();
 }
 
 if ($errors) {
@@ -52,7 +33,7 @@ if ($errors) {
         echo("<p>" . var_dump($_SESSION['ErrorFields']) . "</p>");
         echo("<p>" . var_dump($_POST) . "</p>");
     } else {
-        // header("Location: /index.php?a=recovery2");
+        header("Location: `{$loc}`");
     }
     exit();
 }
@@ -63,7 +44,7 @@ if ($_POST['newPassword'] != $_POST['confirmPass']) {
         echo('<p>Passwords don\'t match.</p>');
     } else {
         $_SESSION['Error'] = "NoMatch";
-        // header("Location: /index.php?a=recovery2");
+        header("Location: `{$loc}`");
     }
     exit();
 }
@@ -84,22 +65,26 @@ if ($complexity < 3 || strlen($info['newPassword']) < 8) {
         echo('<p>Password not complex enough.</p>');
     } else {
         $_SESSION['Error'] = "InsecurePass";
-        // header("Location: /index.php?a=recovery2");
+        header("Location: `{$loc}`");
     }
     exit();
 }
 
+//  Retrieve email from recovery record
+$email = get_rrecord_email($token);
+
+//  Generate login hash
+$lhash = set_login_hash($email);
+
 // Generate hash using PHP password_hash, which includes salt by default
 $phash = password_hash($info['newPassword'], PASSWORD_DEFAULT);
 
-// Send email here.
-
 if ($debug) {
-    echo('<p>Attempted to register account</p>');
+    echo('<p>Attempted to update password</p>');
 } else {
-    update_password($_SESSION['login'], $phash);
+    update_password($lhash, $phash);
     $_SESSION['Registered'] = true;
-    // header("Location: /index.php?a=recovery2");
+    header("Location: /index.php?a=login");
 }
 
 

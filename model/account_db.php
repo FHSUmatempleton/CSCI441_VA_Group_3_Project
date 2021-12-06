@@ -143,21 +143,6 @@ function set_login_hash($email) {
     }
 }
 
-function get_account_userid($email) {
-    global $db;
-    $query = 'SELECT id FROM `users` WHERE `email` = :email';
-    try {
-        $stmt = $db->prepare($query);
-        $stmt->bindValue(':email', $email);
-        $stmt->execute();
-        $userid = $stmt->fetch();
-        return intval($userid['id']);
-    } catch (PDOException $e) {
-        $err = $e->getMessage();
-        display_db_error($err);
-    }
-}
-
 function get_account_by_hash($hash) {
     global $db;
     $query = 'SELECT * FROM `users` WHERE `login_hash` = :lhash';

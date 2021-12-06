@@ -1,54 +1,4 @@
-<style>
-  /************FINALIZE PURCHASE***********/
-  .div_container{
-    font-size = 100px;
-  }
-</style>
-<!----------include files to get id of car and to mirror car info from view page-->
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-	require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
-	require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
-	if (!isset($_GET['id'])) {
-		$id = 3;
-		//echo("<script>location.href = 'index.php?a=search';</script>");
-	} else {
-		$id = $_GET['id'];
-	}
-	
-	$car = get_car_by_id($id);
-?>
-<!--------------------------------------------------------------------------------HTML------------------------------------------------------------------------->
-
-<html>  
-    <body>
-        <div id="wrapper"> 
-<!----------------------------side Navigation page------------------------------>            
-<div class="sidenav">
-                <a href="" style = "color:white;" id="carDetails">
-                    <img>
-                    <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
-                    
-                    <p><?php echo('List Price: $'.$car['price']);?></p>
-
-                </a> 
-            </br>
-                <a href="index.php?a=purchase" style = "color: black;">Personal Information</a> </br>
-                <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
-                <a href="index.php?a=payment">Payment</a> </br>
-                <a href="index.php?a=review">Review Order</a> </br>
-                <a href="index.php?a=finalize">FINALIZE PURCHASE</a> </br>
-            </div>
-<!----------------------------main page on the other side------------------------------>
-            <div class="main">
-                <!-------------header--------------->
-                <header class="purchase_header">
-                    <p id="purchase_car">FINALIZE YOUR PURCHASE</p>
-                </header>
-                <!---------------Finalize Purchase-------------->
-                <?php
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
@@ -79,7 +29,6 @@ error_reporting(E_ALL);
                     </div>
                 </div>
             </div>
-          <div class="div_container">  
             <p>
                 This car purchase agreement has been entered into as of <?php echo date("m/d/y") ?> between Cartana Inc. (Seller)
                 and <?php echo($account['f_name'] . " " . $account['l_name']);?> (Buyer).
@@ -239,7 +188,7 @@ error_reporting(E_ALL);
                 <li>Signature</li>
                 <li><?php echo date("m/d/y") ?></li>
             </p>
-          </div><!--end of text container div-->            
+
             <div class="row">
                 <div class="col-md-12 pills">
                     <div class="bd-example bd-example-tabs">
@@ -272,17 +221,6 @@ error_reporting(E_ALL);
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false">
     </script>
     <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>     
-              
-            </div>
-            
+    <script src="js/main.js"></script>
 
-
-
-                
-            
-        </div> <!--end div wrapper-->
-    </body>
-    
-
-</html>
+</body>

@@ -34,6 +34,17 @@ error_reporting(E_ALL);
 		box-shadow: 0 0 10px indianred;
 	}
 </style>
+<<<<<<< HEAD
+=======
+<div class="container">
+	<h1 class="mb-3 bread">Car Details</h1>
+	<!--Purchase Now button--> 
+	<div>
+		<button id="purchaseNowButton" onclick="location='index.php?a=purchase'">Purchase Now</button> 
+		
+	</div>
+</div>
+>>>>>>> 1c8df725bde15c97aaa676d7d115a26475d60809
 
 
 <div id="wrapper">

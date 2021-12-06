@@ -1,85 +1,10 @@
-<style>
-    /*header text*/
-    #topHeader {
-        font-family: "Lucida Console", "Courier New", monospace;
-        font-weight: bolder;
-        font-size: 25px;
-        padding-left: 10px;
 
-        color: indianred;
 
-    }
+<html>
+    <!--bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</html>
 
-    /*search page wrapper div*/
-    #wrapper {
-        position: relative;
-        background-color: lightgrey;
-        color: black;
-        width: 50%;
-        height: 100%;
-        margin: auto;
-        border: 1px ridge white;
-    }
-
-    /*****search header******/
-    .purchase_header {
-        background-color: gray;
-        margin-left: 20%;
-        padding-top: 1px;
-        height: 50px;
-    }
-
-    /*****body*******/
-    body {
-        font-family: "Lato", sans-serif;
-    }
-
-    /***********side navigation********/
-    .sidenav {
-        height: 100%;
-        margin-left: 20%;
-        width: 15%;
-        /*width of nav page*/
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        background-color: indianred;
-        overflow-x: hidden;
-        padding-top: 5px;
-        border: ridge 1px white;
-    }
-
-    .sidenav a {
-        padding: 6px 8px 6px 16px;
-        text-decoration: none;
-        font-size: 25px;
-        font-weight: bolder;
-        color: rgb(164, 164, 164);
-        display: block;
-        border-top: ridge 1px lightgrey;
-        margin: 5px;
-
-    }
-
-    .sidenav a:hover {
-        color: black;
-    }
-
-    /************main**********/
-    .main {
-        margin-left: 22%;
-        /* Set left margin the same as the width of the sidenav */
-        font-size: 28px;
-        /* Increased text to enable scrolling */
-        padding: 0px 10px;
-    }
-
-    /*************PERSONAL INFO ******/
-    .form-group {
-        font-size: 1.5vw;
-    }
-</style>
 <!----------include files to get id of car and to mirror car info from view page-->
 <?php
 ini_set('display_errors', 1);
@@ -96,106 +21,103 @@ error_reporting(E_ALL);
 	
 	$car = get_car_by_id($id);
 ?>
-<!----------include files to get user account and to mirror user info from profile page-->
+<!----------include files to get user account and to mirror user info from profile page--> 
 <?php
-    require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
+    //require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
+    //require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
+
+    //if (!isset($_SESSION['login'])) {
+     //   header("Location: /purchase/main.php"); 
+    //}
     
     $hash = $_SESSION['login'];
     $account = get_account_by_hash($hash);
 ?>
 
+
 <!--------------------------------------------------------------------------------HTML------------------------------------------------------------------------->
 
-<html>
+<html>  
+    <body>
+        <div id="wrapper"> 
+<!----------------------------side Navigation page------------------------------>            
+            <div class="sidenav">
+                <a href="" style = "color:white;" id="carDetails">
+                    <img>
+                    <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
+                    
+                    <p><?php echo('List Price: $'.$car['price']);?></p>
 
-<body>
-    <div id="wrapper">
-        <!----------------------------side Navigation page------------------------------>
-        <div class="sidenav">
-            <a href="" style="color:white;" id="carDetails">
-                <img>
-                <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
-
-                <p><?php echo('List Price: $'.$car['price']);?></p>
-
-            </a>
+                </a> 
             </br>
-            <a href="/purchase/main.php" style="color: black;">Personal Information</a> </br>
-            <a href="/purchase/transport.php">Delivery or Pick Up</a> </br>
-            <a href="/purchase/payment.php">Payment</a> </br>
-            <a href="/purchase/review.php">Review Order</a> </br>
-            <a href="/purchase/finalize.php">FINALIZE PURCHASE</a> </br>
-        </div>
-        <!-------------header--------------->
-        <header class="purchase_header">
-            <p id="topHeader">PURCHASE CAR</p>
+                <a href="index.php?a=purchase" style = "color: black;">Personal Information</a> </br>
+                <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
+                <a href="index.php?a=payment">Payment</a> </br>
+                <a href="index.php?a=review">Review Order</a> </br>
+                <a href="index.php?a=finalize">FINALIZE PURCHASE</a> </br>
+            </div>
+<!-------------header--------------->
+            <header class="purchase_header">
+                    <p id="topHeader">PURCHASE CAR</p>
+                    
+            </header>
+<!----------------------------main page on the other side------------------------------>
+            <div class="main">
 
-        </header>
-        <!----------------------------main page on the other side------------------------------>
-        <div class="main">
-
-            <!---------------Personal information form-------------->
-            <form>
-                <div class="form-group">
-                    <label for="fName">First Name</label>
-                    <input type="text" class="form-control" id="fName" value="<?php echo($account['f_name']);?>">
-                </div>
-
-                <div class="form-group">
-                    <label for="lName">Last Name</label>
-                    <input type="text" class="form-control" id="lName" placeholder="last name...">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                </div>
-
-                <div class="form-group">
-                    <label for="inputAddress2">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2"
-                        placeholder="Apartment, studio, or floor">
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity">
+                <!---------------Personal information form-------------->
+                <form action="controller/purchase/purchase.php" method="post">
+                    <div class="form-group">
+                        <label for="fname">First Name</label>
+                        <input type="text" class="form-control" id="fname" value="<?php echo($account['f_name']);?>">
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputState">State</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
+
+                    <div class="form-group">
+                        <label for="lname">Last Name</label>
+                        <input type="text" class="form-control" id="lname" value="<?php echo($account['l_name']);?>">
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
+
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="text" class="form-control" id="email" value="<?php echo($account['email']);?>">
                     </div>
-                </div></br>
 
-                <button onclick="document.location='/purchase/transport.php'" type="submit"
-                    class="btn btn-primary">Submit</button>
-            </form>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" value="<?php echo($account['st_addr']);?>">
+                    </div>
 
-            <!---------------Choose Delivery or Pick Up-------------->
+                        <div class="form-group col-md-3">
+                            <label for="state">State</label>
+                            <input type="text" name="state" id="state"
+                            class="form-control form-control-lg" pattern="\D*" maxlength="2"
+                            value="<?php echo($account['state']);?>" />
+                        </div>
 
-        </div>
+                        <div class="form-group col-md-4">
+                        <label for="zip">Zip</label>
+                        <input type="text" class="form-control" id="zip" value="<?php echo($account['zip']);?>">
+                        </div>
+
+                        <div class="form-group col-md-5">
+                        <label for="phone">Phone number</label>
+                        <input type="text" class="form-control" id="phone" maxlength="10" value="<?php echo($account['phone']);?>">
+                        </div>
+                        <button style="background-color: indianred; border: 2px ridge white;" onclick="document.location='/purchase/transport.php'" type="submit" class="btn btn-primary">Submit</button>
+                    </div></br>
+                                    
+                </form>
+
+                <!---------------Choose Delivery or Pick Up-------------->
+
+            </div>
+            
 
 
 
-
-
-
-    </div>
-    <!--end div wrapper-->
-</body>
-
+                
+            
+        </div> <!--end div wrapper-->
+    </body>
+    
 
 </html>

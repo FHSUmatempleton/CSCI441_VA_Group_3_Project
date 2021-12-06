@@ -27,18 +27,16 @@
     //  This password reset system incorporates token-based expiration.
     //
     //--------------------------------------------------------------------
-        //  Retrieve userid
-        $userid = get_account_userid($email);
-
         //  Create a recovery record
-        create_recovery_record($userid);
+        create_recovery_record($email);
 
         //  Retrieve the recovery record
-        $record = get_recovery_record($userid);
+        $record = get_recovery_record($email);
 
-        //  Password reset link
+        //  Retrieve token from recovery record
         $token = $record['token_key'];
 
+        //  Password reset link
         if ($debug) {
             $url = 'localhost/index.php?a=recovery2&h='.$token;
         } else {
