@@ -1,4 +1,8 @@
-
+<style>
+    #delivery{
+        font-weight: bold;
+    }
+</style>
 <!----------include files to get id of car and to mirror car info from view page-->
 <?php
 ini_set('display_errors', 1);
@@ -30,8 +34,8 @@ error_reporting(E_ALL);
 
                 </a> 
             </br>
-                <a href="index.php?a=purchase" style = "color: black;">Personal Information</a> </br>
-                <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
+                <a href="index.php?a=purchase">Personal Information</a> </br>
+                <a href="index.php?a=transport" style = "color: black;">Delivery or Pick Up</a> </br>
                 <a href="index.php?a=payment">Payment</a> </br>
                 <a href="index.php?a=review">Review Order</a> </br>
                 <a href="index.php?a=finalize">FINALIZE PURCHASE</a> </br>
@@ -79,7 +83,7 @@ error_reporting(E_ALL);
 <!-----------------------radio buttons for delivery------------->
                 <div class="option_label">
                     <label for="chkDelivery" >
-                        <input style="background-color: indianred; border: 2px ridge white;" type="radio" id="chkDelivery" name="chkDiv" onclick="showDeliveryDiv()" />
+                        <input style="background-color: indianred; border: 2px ridge white;" type="radio" id="chkDelivery" name="chkDiv" value ="delivery" onclick="showDeliveryDiv()" />
                             Home delivery
                     </label>
                 </div>
@@ -87,7 +91,7 @@ error_reporting(E_ALL);
                 
                 <div class="option_label">
                     <label for="chkPickUp">
-                        <input type="radio" id="chkPickUp" name="chkDiv" onclick="showPickUpDiv()" />
+                        <input type="radio" id="chkPickUp" name="chkDiv" value="pickup" onclick="showPickUpDiv()" />
                         In-person Pickup
                     </label>
                 </div>
@@ -95,41 +99,46 @@ error_reporting(E_ALL);
 <!-----------------------Delivery Div------------->
                 
                 <div class="option_div" id="deliveryDiv" style="display:none">
-                    <form>
+                    <form action="controller/purchase/transport.php" method="post">
+
+                        <div class="form-group col-md-11">
+                            <input type="text" class="form-control" id="delivery" name="del_type" value="Home Delivery"readonly> <!-- -->
+                        </div>
+
                         <div class= "form-group">
                             <label for = "deliveryDate">Choose a delivery date and time:</label>
                             <input type = "date" id="deliveryDate" name="deliveryDate"></br>
                         </div>
                         <!--time options-->
                         <div class= "form-group">
-                            <select id="year_search" onchange="selectYear()">
+                            <select name = "timeframe" id="timeframe">
                                 <option hidden>Choose time</option>
-                                <option value=" Morning ">Morning (between 9 AM - 12 PM)</option>
-                                <option value=" Afternoon ">Afternoon (between 12 PM - 3 PM)</option>
-                                <option value=" Evening ">Evening (between 3 PM - 6 PM)</option>
+                                <option name = "timeframe1" value="Morning">Morning (between 9 AM - 12 PM)</option>
+                                <option name = "timeframe2" value="Afternoon">Afternoon (between 12 PM - 3 PM)</option>
+                                <option name = "timeframe3" value="Evening">Evening (between 3 PM - 6 PM)</option>
                             </select>
                         </div>
                         <div class="form-group col-md-11">
                             <label for="address">Address</label>
-                            <input type="text" class="form-control" id="address">
+                            <input type="text" class="form-control" id="address" name="del_address"> <!-- -->
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="state">State</label>
-                            <input type="text" name="state" id="state"
-                            class="form-control form-control-lg" pattern="\D*" maxlength="2">
+                            <input type="text" name="del_state" id="state" 
+                                class="form-control form-control-lg" pattern="\D*" maxlength="2"> <!-- -->
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="zip">Zip</label>
-                            <input type="text" class="form-control" id="zip">
+                            <input type="text" class="form-control" id="zip" name="del_zip"> <!-- -->
                         </div>
 
                         <div class="form-group col-md-5">
                             <label for="phone">Phone number</label>
-                            <input type="text" class="form-control" id="phone" maxlength="10">
+                            <input type="text" class="form-control" id="phone" name="del_phone" maxlength="10"> <!-- -->
                         </div>
-                        <button style="background-color: indianred; border: 2px ridge white;" onclick="document.location='/purchase/transport.php'" type="submit" class="btn btn-primary">Submit</button>
+                        <button style="background-color: indianred; border: 2px ridge white;" onclick="document.location='/index.php?a=review'" type="submit" class="btn btn-primary">Submit</button>
                     </form>
                         
                 </div>
@@ -137,23 +146,29 @@ error_reporting(E_ALL);
 <!-----------------------PickUp Div------------->
                 
                 <div class="option_div" id="pickupDiv" style="display:none">
-                <form>
+                <form action="controller/purchase/transport2.php" method="post">
+                    
+                    <div class="form-group">
+                            <input type="text" class="form-control" id="pickup" name="del_type" value="Pickup"readonly> <!-- -->
+                    </div>
+
+
                     <div class="form-group">
                         <label for="fName">First Name</label>
-                        <input type="text" class="form-control" id="fName" placeholder="First name of the person picking up the car">
+                        <input type="text" class="form-control" id="fName" name="pickup_fname" placeholder="First name of the person picking up the car"> <!-- -->
                     </div>
 
                     <div class="form-group">
                         <label for="lName">Last Name</label>
-                        <input type="text" class="form-control" id="lName" placeholder="Last name of the person picking up the car">
+                        <input type="text" class="form-control" id="lName" name="pickup_lname" placeholder="Last name of the person picking up the car"> <!-- -->
                     </div>
                     <div class="form-group">
                             <label for="phoneNumber">Phone Number</label>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="Phone number of pickup person">
+                            <input type="text" class="form-control" id="phoneNumber" name="pickup_phone" placeholder="Phone number of pickup person"> <!-- -->
                     </div>
                     
                 
-                    <button style="background-color: indianred; border: 2px ridge white;" onclick="document.location='/purchase/transport.php'" type="submit" class="btn btn-primary">Submit</button>
+                    <button style="background-color: indianred; border: 2px ridge white;" onclick="document.location='/index.php?a=review'" type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 </div>
             </div><!--end main-->
