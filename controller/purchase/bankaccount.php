@@ -89,13 +89,13 @@ function pay_with_account($array) {
                 .   "`account_num`             = :accountNum, " //acct num
                 .   "`routing_num`             = :routing, " //routing
 
-                //credit card info (NULL)
-                .   "`delivery_date`                 = :cardType, " //card type
-                .   "`delivery_timeframe`            = :cardFN, " //card fname
-                .   "`delivery_address`              = :cardLN, " //card lname
-                .   "`delivery_state`                = :cardNum, " //card num
-                .   "`delivery_zip`                  = :exp, " //card exp
-                .   "`delivery_phonenum`             = :cvv " //card cvv
+                //credit card info 
+                .   "`card_type`                 = :cardType, " //card type
+                .   "`card_fname`            = :cardFN, " //card fname
+                .   "`card_lname`              = :cardLN, " //card lname
+                .   "`card_num`                = :cardNum, " //card num
+                .   "`card_expiration`                  = :exp, " //card exp
+                .   "`card_cvv`             = :cvv " //card cvv
                 . "WHERE "
                 .   "`user_id`                  = user_id; ";
 
