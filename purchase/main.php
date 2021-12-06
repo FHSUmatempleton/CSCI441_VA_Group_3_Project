@@ -68,22 +68,22 @@ error_reporting(E_ALL);
                 <form action="controller/purchase/purchase.php" method="post">
                     <div class="form-group">
                         <label for="fname">First Name</label>
-                        <input type="text" class="form-control" id="fname" value="<?php echo($account['f_name']);?>">
+                        <input type="text" class="form-control" id="fname" name="fname" value="<?php echo($account['f_name']);?>">
                     </div>
 
                     <div class="form-group">
                         <label for="lname">Last Name</label>
-                        <input type="text" class="form-control" id="lname" value="<?php echo($account['l_name']);?>">
+                        <input type="text" class="form-control" id="lname" name="lname" value="<?php echo($account['l_name']);?>">
                     </div>
 
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="text" class="form-control" id="email" value="<?php echo($account['email']);?>">
+                        <input type="text" class="form-control" id="email" name="email" value="<?php echo($account['email']);?>">
                     </div>
 
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" value="<?php echo($account['st_addr']);?>">
+                        <input type="text" class="form-control" id="address" name="address" value="<?php echo($account['st_addr']);?>">
                     </div>
 
                         <div class="form-group col-md-3">
@@ -95,12 +95,12 @@ error_reporting(E_ALL);
 
                         <div class="form-group col-md-4">
                         <label for="zip">Zip</label>
-                        <input type="text" class="form-control" id="zip" value="<?php echo($account['zip']);?>">
+                        <input type="text" class="form-control" id="zip" name="zip" value="<?php echo($account['zip']);?>">
                         </div>
 
                         <div class="form-group col-md-5">
                         <label for="phone">Phone number</label>
-                        <input type="text" class="form-control" id="phone" maxlength="10" value="<?php echo($account['phone']);?>">
+                        <input type="text" class="form-control" id="phone" name="phone" maxlength="10" value="<?php echo($account['phone']);?>">
                         </div>
                         <button style="background-color: indianred; border: 2px ridge white;" onclick="document.location='/purchase/transport.php'" type="submit" class="btn btn-primary">Submit</button>
                     </div></br>
