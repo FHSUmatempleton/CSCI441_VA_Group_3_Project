@@ -15,6 +15,7 @@ $info['lname'] = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_STRING); // l
 $info['address'] = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING); //address
 $info['state'] = filter_input(INPUT_POST, 'state', FILTER_SANITIZE_STRING); //state
 $info['zip'] = filter_input(INPUT_POST, 'zip', FILTER_SANITIZE_STRING); //zipcode
+$info['email'] = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
 // Verify phone number is 10 digits without symbols or spaces.
 $info['phone'] = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING); //phonenumber
@@ -44,30 +45,30 @@ function purchase_info($array) {
     global $db;
     $query =    "INSERT IGNORE INTO "
                 .  "`purchase` ("
-                .       "buyer_fname, "
-                .       "buyer_lname, "
-                .       "buyer_address, "
-                .       "buyer_state, "
-                .       "buyer_zip, "
-                .       "buyer_phonenum, "
-                .       "buyer_email, "
-                . ") VALUES ( "
+                .       "`buyer_fname`, "
+                .       "`buyer_lname`, "
+                .       "`buyer_address`, "
+                .       "`buyer_state`, "
+                .       "`buyer_zip`, "
+                .       "`buyer_phonenum`, "
+                .       "`buyer_email`"
+                . ") VALUES ("
                 .       ":fname, "
                 .       ":lname, "
                 .       ":address, "
                 .       ":state, "
                 .       ":zip, "
-                .       ":phone , "
-                .       ":email )";
+                .       ":phone, "
+                .       ":email)";
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':fname',     $array['fname']);
         $stmt->bindValue(':lname',     $array['lname']);
         $stmt->bindValue(':address',   $array['address']);
         $stmt->bindValue(':state',     $array['state']);
-        $stmt->bindValue(':zip',       $array['zip']);
-        $stmt->bindValue(':phone',     $array['phone']);
-        $stmt->bindValue(':email',     $array['email']);
+        $stmt->bindValue(':zip',       $array['zip'], PDO::PARAM_INT);
+        $stmt->bindValue(':phone',     $array['phone'], PDO::PARAM_INT);
+        $stmt->bindValue(':email',     $array['email'], PDO::PARAM_INT);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
