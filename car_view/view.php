@@ -3,6 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 	require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
 	if (!isset($_GET['id'])) {
 		$id = 3;
@@ -15,37 +16,51 @@ error_reporting(E_ALL);
 ?>
 <!--temp place for Purchase Now button style -->
 <style>
-	#purchaseNowButton{
-		padding: 6px 8px 6px 16px;
+	#purchaseNowButton {
+		padding: 0px 10px 0px 10px;
 		text-decoration: none;
-		
+
 		font-size: 25px;
 		font-weight: bolder;
 		color: indianred;
 		display: block;
-		border: groove 7px lightgrey;
+		border: solid #666 3px;
 		margin-left: 84%;
 		margin-bottom: 10px;
+		border-radius: 10%;
 	}
 
 	#purchaseNowButton:hover {
-		box-shadow: 0 0 10px indianred; 
+		box-shadow: 0 0 10px indianred;
 	}
 </style>
-<div class="container">
-	<h1 class="mb-3 bread">Car Details</h1>
-	<!--Purchase Now button--> 
-	<div>
-		<button id="purchaseNowButton" onclick="location='/purchase/main.php'">Purchase Now</button> 
-		
-	</div>
-</div>
 
-<section class="ftco-section ftco-car-details">
 
+<div id="wrapper">
 	<div class="container">
-		<div class="row justify-content-center">
-			<?php           
+		<h1 class="mb-3 bread">Car Details</h1>
+		<!--Reserve button-->
+		<?php if(get_reservation_status($car['id'])) {
+			if (get_reservation_user_by_car($car['id']) == get_account_by_hash($uid)) {
+
+			} else {
+
+			}
+		} else {
+			echo '<div>';
+			echo '<form action="/controller/inventory/reserve.php" method="post">';
+			echo '<input id="id" name="id" hidden value="' . $car['id'] .'"></input>';
+			echo '<input type="submit" id="purchaseNowButton" value="Reserve"></button>';
+			echo '</form>';
+			echo '</div>';
+		}
+		?>
+	</div>
+	<section class="ftco-section ftco-car-details">
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<?php           
                             $na = false;
                             if ($car['color'] == "black" || $car['color'] == "brown" || $car['color'] == "custom") {
                                 $na = true;
@@ -94,34 +109,34 @@ error_reporting(E_ALL);
                                 $imgPath = "$carBody/$carBody-$carColor.jpg";
                             }
                     ?>
-			<img src="img/search/<?php echo $imgPath;?>" width='70%' height='30%' />
-			<div class="col-md-12">
-				<div class="car-details">
-					<div class="img rounded" style="background-image: url(images/bg_1.jpg);"></div>
-					<div class="text text-center">
-						<h1><?php echo($car['manufacturer'] . " " . $car['model']);?></h1>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md d-flex align-self-stretch ftco-animate">
-				<div class="media block-6 services">
-					<div class="media-body py-md-4">
-						<div class="d-flex mb-3 align-items-center">
-							<div class="icon d-flex align-items-center justify-content-center"><span
-									class="flaticon-car-seat"></span></div>
-							<div class="text">
-								<h3 class="heading mb-0 pl-3">
-									Year:
-									<span><?php echo($car['year']);?></span>
-								</h3>
-							</div>
+				<img src="img/search/<?php echo $imgPath;?>" width='70%' height='30%' />
+				<div class="col-md-12">
+					<div class="car-details">
+						<div class="img rounded" style="background-image: url(images/bg_1.jpg);"></div>
+						<div class="text text-center">
+							<h1><?php echo($car['manufacturer'] . " " . $car['model']);?></h1>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md d-flex align-self-stretch ftco-animate">
+			<div class="row">
+				<div class="col-md d-flex align-self-stretch ftco-animate">
+					<div class="media block-6 services">
+						<div class="media-body py-md-4">
+							<div class="d-flex mb-3 align-items-center">
+								<div class="icon d-flex align-items-center justify-content-center"><span
+										class="flaticon-car-seat"></span></div>
+								<div class="text">
+									<h3 class="heading mb-0 pl-3">
+										Year:
+										<span><?php echo($car['year']);?></span>
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md d-flex align-self-stretch ftco-animate">
 					<div class="media block-6 services">
 						<div class="media-body py-md-4">
 							<div class="d-flex mb-3 align-items-center">
@@ -153,8 +168,8 @@ error_reporting(E_ALL);
 						</div>
 					</div>
 				</div>
-				</div>
-				<div class="row">
+			</div>
+			<div class="row">
 				<div class="col-md d-flex align-self-stretch ftco-animate">
 					<div class="media block-6 services">
 						<div class="media-body py-md-4">
@@ -170,7 +185,7 @@ error_reporting(E_ALL);
 							</div>
 						</div>
 					</div>
-				</div>				
+				</div>
 				<div class="col-md d-flex align-self-stretch ftco-animate">
 					<div class="media block-6 services">
 						<div class="media-body py-md-4">
@@ -234,9 +249,10 @@ error_reporting(E_ALL);
 				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-	</div>
-	</div>
-	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
+</div>

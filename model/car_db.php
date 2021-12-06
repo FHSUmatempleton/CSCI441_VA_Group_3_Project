@@ -70,4 +70,68 @@ function modify_car_by_id($id, $array) {
     }
 }
 
+function get_reservation_status($id) {
+    global $db;
+    $query = "SELECT `reserved` FROM `cars` WHERE id = :id";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':id', $id);
+        $val = $stmt->fetch();
+        if ($val == 0) {
+            return false;
+        } else {
+            return true;
+        } 
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function get_reservation_user_by_car($id) {
+    global $db;
+    $query = "SELECT `reserved_by` FROM `cars` WHERE `id` = :id";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':id', $id);
+        return $stmt->fetch();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function get_reservation_car_by_user($id) {
+    global $db;
+    $query = "SELECT `id` FROM `cars` WHERE `reserved_by` = :id";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':id', $id);
+        return $stmt->fetch();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function set_reservation($car_id, $user_id) {
+    global $db;
+    $now = date("Y/m/d H:i:s");
+    $query = "UPDATE `cars` SET "
+            . "`reserved_by` = :uid, "
+            . "`reserved` = 1, "
+            . "`reserved_on` = :dat "
+            . "WHERE `id` = :cid";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':uid', $user_id);
+        $stmt->bindValue(':dat', $now);
+        $stmt->bindValue(':cid', $car_id);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
 ?>

@@ -45,8 +45,6 @@ if ($errors) {
     exit();
 }
 
-
-
 if ($_POST['newPassword'] != $_POST['confirmPass']) {
     if ($debug) {
         echo('<p>Passwords don\'t match.</p>');

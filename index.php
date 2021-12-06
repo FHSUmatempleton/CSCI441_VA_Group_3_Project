@@ -49,6 +49,7 @@
 					break;
 				case 'view':
 					$PageTitle = "Car Detail";
+					array_push($includeCSS, "css/search/search.css");
 					$FileLoc = "car_view/view.php";
 					break;
 				case 'changepass':
