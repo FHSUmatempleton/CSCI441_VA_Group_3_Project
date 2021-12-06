@@ -43,15 +43,22 @@ if ($debug) {
 function purchase_info($array) {
     global $db;
     $query =    "INSERT IGNORE INTO "
-                .   "`purchase` "
-                . "SET "
-                .   "` buyer_fname`                = :fname, "
-                .   "` buyer_lname`                = :lname, "
-                .   "` buyer_address`              = :address, "
-                .   "` buyer_state`                = :state, "
-                .   "` buyer_zip`                  = :zip, "
-                .   "` buyer_phonenum`             = :phone , "
-                .   "` buyer_email`                = :email, ";
+                .  "`purchase` ("
+                .       "buyer_fname, "
+                .       "buyer_lname, "
+                .       "buyer_address, "
+                .       "buyer_state, "
+                .       "buyer_zip, "
+                .       "buyer_phonenum, "
+                .       "buyer_email, "
+                . ") VALUES ( "
+                .       ":fname, "
+                .       ":lname, "
+                .       ":address, "
+                .       ":state, "
+                .       ":zip, "
+                .       ":phone , "
+                .       ":email )";
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':fname',     $array['fname']);
