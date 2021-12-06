@@ -1,15 +1,39 @@
+<!----------include files to get id of car and to mirror car info from view page-->
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+	require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
+	if (!isset($_GET['id'])) {
+		$id = 3;
+		//echo("<script>location.href = 'index.php?a=search';</script>");
+	} else {
+		$id = $_GET['id'];
+	}
+	
+	$car = get_car_by_id($id);
+?>
 <?php
 session_start();
+require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+//access database to get user account info
+$hash = $_SESSION['login'];
+$account = get_account_by_hash($hash);
 
 $debug = false;
+
 // Initialize information array
 $info = array();
 
+$info['user_id'] = $account['id']; //userid
+$info['car_id'] = $car['id']; //car vin#
+$info['vin'] = $car['vin']; //car_id
 $info['fname'] = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_STRING); //firstname
 $info['lname'] = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_STRING); // lastname
 $info['address'] = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING); //address
@@ -40,11 +64,37 @@ if ($debug) {
 ?>
 
 <!---------TEMP PLACEMENT FOR FUNCTIONS----->
-<?php //save personal info
+<?php 
+//save userid at the beggining
+
+/*function insert_userid($user_id)
+{
+    global $db;
+    $query =    "INSERT IGNORE INTO "
+                .       "`purchase` ("
+                .       "`user_id`"
+                . ") VALUES ("
+                .       ":user_id)";
+                try {
+                    $stmt = $db->prepare($query);
+                    $stmt->bindValue(':user_id',     $user_id);
+
+                    $stmt->execute();
+                    $stmt->closeCursor();
+                } catch (PDOException $e) {
+                    $err = $e->getMessage();
+                    display_db_error($err);
+                }
+}*/
+
+//save personal info
 function purchase_info($array) {
     global $db;
     $query =    "INSERT IGNORE INTO "
-                .  "`purchase` ("
+                .       "`purchase` ("
+                .       "`user_id`, "
+                .       "`car_id`, "
+                .       "`vin`, "
                 .       "`buyer_fname`, "
                 .       "`buyer_lname`, "
                 .       "`buyer_address`, "
@@ -53,6 +103,9 @@ function purchase_info($array) {
                 .       "`buyer_phonenum`, "
                 .       "`buyer_email`"
                 . ") VALUES ("
+                .       ":user_id,"
+                .       ":car_id,"
+                .       ":vin,"
                 .       ":fname, "
                 .       ":lname, "
                 .       ":address, "
@@ -62,13 +115,16 @@ function purchase_info($array) {
                 .       ":email)";
     try {
         $stmt = $db->prepare($query);
+        $stmt->bindValue(':user_id',   $array['user_id']);
+        $stmt->bindValue(':car_id',    $array['car_id']);
+        $stmt->bindValue(':vin',       $array['vin']);
         $stmt->bindValue(':fname',     $array['fname']);
         $stmt->bindValue(':lname',     $array['lname']);
         $stmt->bindValue(':address',   $array['address']);
         $stmt->bindValue(':state',     $array['state']);
-        $stmt->bindValue(':zip',       $array['zip'], PDO::PARAM_INT);
-        $stmt->bindValue(':phone',     $array['phone'], PDO::PARAM_INT);
-        $stmt->bindValue(':email',     $array['email'], PDO::PARAM_INT);
+        $stmt->bindValue(':zip',       $array['zip']);
+        $stmt->bindValue(':phone',     $array['phone']);
+        $stmt->bindValue(':email',     $array['email']);
         $stmt->execute();
         $stmt->closeCursor();
     } catch (PDOException $e) {
