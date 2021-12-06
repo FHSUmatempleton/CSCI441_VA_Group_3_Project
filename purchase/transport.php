@@ -99,7 +99,7 @@ error_reporting(E_ALL);
 <!-----------------------Delivery Div------------->
                 
                 <div class="option_div" id="deliveryDiv" style="display:none">
-                    <form action="controller/purchase/transport.php" method="post">
+                    <form action="controller/purchase/delivery.php" method="post">
 
                         <div class="form-group col-md-11">
                             <input type="text" class="form-control" id="delivery" name="del_type" value="Home Delivery"readonly> <!-- -->
@@ -146,7 +146,7 @@ error_reporting(E_ALL);
 <!-----------------------PickUp Div------------->
                 
                 <div class="option_div" id="pickupDiv" style="display:none">
-                <form action="controller/purchase/transport2.php" method="post">
+                <form action="controller/purchase/pickup.php" method="post">
                     
                     <div class="form-group">
                             <input type="text" class="form-control" id="pickup" name="del_type" value="Pickup"readonly> <!-- -->
