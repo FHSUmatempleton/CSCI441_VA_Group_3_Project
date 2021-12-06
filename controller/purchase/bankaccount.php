@@ -67,8 +67,8 @@ $info['cvv'] =          "NULL";  //cvv
 if ($debug) {
     echo('<p>Missing information.</p>');
 } else {
-    transport_info($info);
-    header("Location: /index.php?a=review");
+    pay_with_account($info);
+    header("Location: /index.php?a=finalize");
 }
 
 ?>
@@ -77,7 +77,7 @@ if ($debug) {
 <?php 
 
 //save personal info
-function transport_info($array) {
+function pay_with_account($array) {
     global $db;
     $query =    "UPDATE `purchase` "
                 . "SET"
