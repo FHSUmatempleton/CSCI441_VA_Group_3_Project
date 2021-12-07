@@ -10,6 +10,7 @@
     $hash = $_SESSION['login'];
     $account = get_account_by_hash($hash);
     $car = get_car_by_id(3);
+    $total=$car['price']+500+200;//total purchase price
 ?>
 
 
@@ -80,7 +81,7 @@
                 Total purchase price is broken down as follows:
                 <li>
                     Payment Due to Buyer on or before execution of this agreement:
-                    $<span><?php echo($car['price']);?></span>
+                    <span style="font-weight:bold;">$ <?php echo($total);?></span> <!--changed price to total -->
                 </li>
                 <li>
                     Payments can be made via cash, money order, or with prior approval check made out to seller.
