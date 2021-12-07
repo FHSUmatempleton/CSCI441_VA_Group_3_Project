@@ -72,11 +72,15 @@ function modify_car_by_id($id, $array) {
 
 function get_reservation_status($id) {
     global $db;
-    $query = "SELECT `reserved` FROM `cars` WHERE id = :id";
+    $query = "SELECT `reserved` FROM `cars` WHERE `id` = :id";
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':id', $id);
+        $stmt->execute();
         $val = $stmt->fetch();
+        if ($val != false) {
+            $val = $val['reserved'];
+        }
         if ($val == 0) {
             return false;
         } else {
@@ -94,7 +98,8 @@ function get_reservation_user_by_car($id) {
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':id', $id);
-        return $stmt->fetch();
+        $stmt->execute();
+        return $stmt->fetch()['reserved_by'];
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
@@ -107,7 +112,22 @@ function get_reservation_car_by_user($id) {
     try {
         $stmt = $db->prepare($query);
         $stmt->bindValue(':id', $id);
+        $stmt->execute();
         return $stmt->fetch();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+function get_reservation_time($id) {
+    global $db;
+    $query = "SELECT `reserved_on` FROM `cars` WHERE `id` = :id";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch()['reserved_on'];
     } catch (PDOException $e) {
         $err = $e->getMessage();
         display_db_error($err);
@@ -127,6 +147,25 @@ function set_reservation($car_id, $user_id) {
         $stmt->bindValue(':uid', $user_id);
         $stmt->bindValue(':dat', $now);
         $stmt->bindValue(':cid', $car_id);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        $err = $e->getMessage();
+        display_db_error($err);
+    }
+}
+
+
+function delete_reservation($id) {
+    global $db;
+    $now = date("Y/m/d H:i:s");
+    $query = "UPDATE `cars` SET "
+            . "`reserved_by` = NULL, "
+            . "`reserved` = 0, "
+            . "`reserved_on` = NULL "
+            . "WHERE `id` = :id";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':id', $id);
         $stmt->execute();
     } catch (PDOException $e) {
         $err = $e->getMessage();

@@ -30,6 +30,19 @@ error_reporting(E_ALL);
 		border-radius: 10%;
 	}
 
+	.sty {
+		padding: 0px 10px 0px 10px;
+		text-decoration: none;
+
+		font-size: 25px;
+		font-weight: bolder;
+		color: indianred;
+		display: block;
+		margin-left: 84%;
+		margin-bottom: 10px;
+		border-radius: 10%;
+	}
+
 	#purchaseNowButton:hover {
 		box-shadow: 0 0 10px indianred;
 	}
@@ -40,21 +53,40 @@ error_reporting(E_ALL);
 	<div class="container">
 		<h1 class="mb-3 bread">Car Details</h1>
 		<!--Reserve button-->
-		<?php if(get_reservation_status($car['id'])) {
-			if (get_reservation_user_by_car($car['id']) == get_account_by_hash($uid)) {
-
-			} else {
-
+		<?php
+			if (get_reservation_status($car['id'])) {
+				$time = new DateTime(get_reservation_time($car['id'])); 
+				$timeExpire = $time->add(new DateInterval('PT30M'));
+				$timeNow = new DateTime(date('Y-m-d H:i:s'));
+				if ($timeNow > $timeExpire) {
+					delete_reservation($car['id']);
+				}
 			}
-		} else {
-			echo '<div>';
-			echo '<form action="/controller/inventory/reserve.php" method="post">';
-			echo '<input id="id" name="id" hidden value="' . $car['id'] .'"></input>';
-			echo '<input type="submit" id="purchaseNowButton" value="Reserve"></button>';
-			echo '</form>';
-			echo '</div>';
-		}
 		?>
+
+		<?php if (get_reservation_status($car['id'])): ?>
+		<?php if (get_reservation_user_by_car($car['id']) == get_account_by_hash($_SESSION['login'])['id']): ?>
+		<?php
+		$timeDiff = $timeExpire->diff($timeNow);
+		
+		?>
+		<div class="sty">Reserved for
+			<div id="time_container"><?php echo $timeDiff->format('%I:%S');?></div>
+		</div>
+		<form action="index.php?a=purchase" method="post">
+			<input id="id" name="id" hidden value="<?php echo $car['id'];?>">
+			<input type="submit" id="purchaseNowButton" value="Purchase">
+		</form>
+		<?php else: ?>
+		<?php endif; ?>
+		<?php else: ?>
+		<div>
+			<form action="/controller/inventory/reserve.php" method="post">
+				<input id="id" name="id" hidden value="<?php echo $car['id'];?>">
+				<input type="submit" id="purchaseNowButton" value="Reserve">
+			</form>
+		</div>
+		<?php endif; ?>
 	</div>
 	<section class="ftco-section ftco-car-details">
 
@@ -112,7 +144,6 @@ error_reporting(E_ALL);
 				<img src="img/search/<?php echo $imgPath;?>" width='70%' height='30%' />
 				<div class="col-md-12">
 					<div class="car-details">
-						<div class="img rounded" style="background-image: url(images/bg_1.jpg);"></div>
 						<div class="text text-center">
 							<h1><?php echo($car['manufacturer'] . " " . $car['model']);?></h1>
 						</div>
@@ -256,3 +287,47 @@ error_reporting(E_ALL);
 </div>
 </section>
 </div>
+
+<script>
+	function updateTimer(expire) {
+
+		var timer = document.getElementById("time_container");
+		var now = new Date(Date.now());
+		var time_to_expire = (expire.getTime() - now.getTime()) / 1000;
+		var seconds = time_to_expire % 60;
+		var remain = time_to_expire - seconds;
+		if (remain < 60) {
+			var minutes = 0;
+		} else {
+			var minutes = remain / 60;
+		}
+		console.log(minutes + ":" + seconds);
+		timer.innerHTML = minutes + ":" + seconds);
+
+
+	};
+	window.onload = function () {
+		var timer = document.getElementById("time_container").innerHTML;
+		var time_split = timer.split(':');
+		var seconds_to_expire = (parseInt(time_split[0], 10) * 60) + parseInt(time_split[1], 10);
+		var expire = new Date(Date.now());
+		expire.setSeconds(expire.getSeconds() + seconds_to_expire);
+		var timer_obj = document.getElementById("time_container");
+
+		setInterval(function () {
+				var now = new Date(Date.now());
+				var time_to_expire = (expire.getTime() - now.getTime()) / 1000;
+				var seconds = time_to_expire % 60;
+				var remain = time_to_expire - seconds;
+				var remain = time_to_expire - seconds;
+				if (remain < 60) {
+					var minutes = 0;
+				} else {
+					var minutes = remain / 60;
+				}
+				console.log(minutes + ":" + seconds);
+				timer.innerHTML = minutes + ":" + seconds);
+		}, 1000);
+
+	};
+</script>
