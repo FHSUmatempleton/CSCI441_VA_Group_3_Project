@@ -138,8 +138,13 @@ error_reporting(E_ALL);
                 
                 <div class="payment_option_div" id="checkingDiv" style="display:none">
                     <form action="controller/purchase/bankaccount.php" method="post">
+
                         <div class="form-group col-md-11">
-                            <input type="text" class="form-control" id="paymenttype" name="paymenttype" value="Bank Account" hidden> <!-- -->
+                            <input type="text" class="form-control" id="total" name="total" value="<?php echo("$total");?>" hidden> <!--total -->
+                        </div>
+
+                        <div class="form-group col-md-11">
+                            <input type="text" class="form-control" id="paymenttype" name="paymenttype" value="Bank Account" hidden> <!--payment type -->
                         </div>
 
                         <div class= "form-group">
@@ -179,6 +184,10 @@ error_reporting(E_ALL);
                 
                 <div class="payment_option_div" id="creditDiv" style="display:none">
                     <form action="controller/purchase/card.php" method="post">
+
+                        <div class="form-group col-md-11">
+                            <input type="text" class="form-control" id="total" name="total" value="<?php echo("$total");?>" hidden> <!--total -->
+                        </div>
 
                         <div class="form-group col-md-11">
                             <input type="text" class="form-control" id="paymenttype name="paymenttype" value="Credit Card" hidden> <!-- -->

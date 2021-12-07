@@ -33,7 +33,8 @@ $info = array();
 
 $info['user_id'] = $account['id']; //userid
 //bank account info
-$info['payType'] =      filter_input(INPUT_POST, 'paymenttype', FILTER_SANITIZE_STRING); //paymenttype
+$info['total'] =      filter_input(INPUT_POST, 'total', FILTER_SANITIZE_STRING); //total
+$info['payType'] =      filter_input(INPUT_POST, 'paymenttype', FILTER_SANITIZE_STRING); //paymenttype  
 $info['accountType'] =  filter_input(INPUT_POST, 'accounttype', FILTER_SANITIZE_STRING); // account type
 $info['accountFN'] =    filter_input(INPUT_POST, 'accountfname', FILTER_SANITIZE_STRING); //account first name
 $info['accountLN'] =    filter_input(INPUT_POST, 'accountlname', FILTER_SANITIZE_STRING); // account last name
@@ -82,19 +83,20 @@ function pay_with_account($array) {
     $query =    "UPDATE `purchase` "
                 . "SET"
                 //bank account info
-                .   "`payment_type`            = :payType, " //pay type
+                .   "`total_due`                = :total, " //total_due
+                .   "`payment_type`             = :payType, " //pay type
                 .   "`account_type`             = :accountType, " //account type
-                .   "`account_fname`             = :accountFN, " //acct fname
-                .   "`account_lname`             = :accountLN, " //acct lname
-                .   "`account_num`             = :accountNum, " //acct num
-                .   "`routing_num`             = :routing, " //routing
+                .   "`account_fname`            = :accountFN, " //acct fname
+                .   "`account_lname`            = :accountLN, " //acct lname
+                .   "`account_num`              = :accountNum, " //acct num
+                .   "`routing_num`              = :routing, " //routing
 
                 //credit card info 
                 .   "`card_type`                 = :cardType, " //card type
-                .   "`card_fname`            = :cardFN, " //card fname
-                .   "`card_lname`              = :cardLN, " //card lname
-                .   "`card_num`                = :cardNum, " //card num
-                .   "`card_expiration`                  = :exp, " //card exp
+                .   "`card_fname`                = :cardFN, " //card fname
+                .   "`card_lname`                = :cardLN, " //card lname
+                .   "`card_num`                  = :cardNum, " //card num
+                .   "`card_expiration`           = :exp, " //card exp
                 .   "`card_cvv`             = :cvv " //card cvv
                 . "WHERE "
                 .   "`user_id`                  = user_id; ";
@@ -103,6 +105,7 @@ function pay_with_account($array) {
     try {
         $stmt = $db->prepare($query);
         //account info
+        $stmt->bindValue(':total',              $array['total']);
         $stmt->bindValue(':payType',            $array['payType']);
         $stmt->bindValue(':accountType',        $array['accountType']);
         $stmt->bindValue(':accountFN',          $array['accountFN']);
