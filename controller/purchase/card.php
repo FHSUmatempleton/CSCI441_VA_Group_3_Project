@@ -42,7 +42,7 @@ $info['routing'] =      "NULL"; // account routing
 
 
 //credit card info
-
+$info['total'] =      filter_input(INPUT_POST, 'total', FILTER_SANITIZE_STRING); //total
 $info['cardType'] =     filter_input(INPUT_POST, 'cardtype', FILTER_SANITIZE_STRING); //paymenttype //card type
 $info['cardFN'] =       filter_input(INPUT_POST, 'cardfname', FILTER_SANITIZE_STRING); //paymenttype //card first name
 $info['cardLN'] =       filter_input(INPUT_POST, 'cardlname', FILTER_SANITIZE_STRING); //paymenttype //card last name
@@ -82,6 +82,7 @@ function pay_with_card($array) {
     $query =    "UPDATE `purchase` "
                 . "SET"
                 //bank account info
+                .   "`total_due`                = :total, " //total_due
                 .   "`payment_type`            = :payType, " //pay type
                 .   "`account_type`             = :accountType, " //account type
                 .   "`account_fname`             = :accountFN, " //acct fname
@@ -103,6 +104,7 @@ function pay_with_card($array) {
     try {
         $stmt = $db->prepare($query);
         //account info
+        $stmt->bindValue(':total',              $array['total']);
         $stmt->bindValue(':payType',            $array['payType']);
         $stmt->bindValue(':accountType',        $array['accountType']);
         $stmt->bindValue(':accountFN',          $array['accountFN']);

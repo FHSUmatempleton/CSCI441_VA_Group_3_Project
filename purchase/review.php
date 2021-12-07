@@ -1,4 +1,28 @@
+<style>
+  /************FINALIZE PURCHASE***********/
+  #total{
+    
+    border:2px ridge white;
+    width:100%;
+    background-color: darkgray;
+    padding: 5px;
 
+  }
+.review_header{
+  background-color: gray;
+  margin:-10px;
+  margin-left: -30px;
+  padding-top: 1px;
+  height: 50px;
+  border: 2px ridge white;
+  
+}
+#review{
+    color: indianred;
+    font-weight: bolder;
+    margin-left: 20px;
+}
+</style>
 
 <!----------include files to get id of car and to mirror car info from view page-->
 <?php
@@ -57,23 +81,59 @@ error_reporting(E_ALL);
 <!----------------------------main page on the other side------------------------------>
             <div class="main">
                 <!-------------header--------------->
-                <header class="purchase_header">
-                    <p id="purchase_car">REVIEW YOUR ORDER</p>
+                <header class="review_header">
+                    <p id="review">REVIEW YOUR ORDER</p>
                 </header>
                 <!---------------REVIEW Purchase-------------->
-                <div>
+
+                <div class="container">
                     <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
-                    <p><?php echo('List Price: $'.$car['price']);?></p>
-                    <p>Fees:</p>
-                    <p>$200.00</p>
-                    <p>Tax </p>
-                    <p>500</p>
-                    <p>Total</p>
-                    <p>$</p>
-
-                    <button type="submit" class="btn btn-primary">Place Order</button>
-
+                    <p style="font-size:medium;" >Vin: <?php echo($car['vin']);?></p>
+                    <div class="row">
+                        <div class="col">
+                        List Price:
+                        </div>
+                        <div style="font-weight:bold;" class="col">
+                        <?php echo('$'.$car['price']);?>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                        Fee:
+                        </div>
+                        <div style="font-weight:bold;" class="col">
+                        $200.00
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                        Taxes:
+                        </div>
+                        <div style="font-weight:bold;" class="col">
+                        $500.00
+                        </div>
+                    </div>
+                </div>
+
+                <div id="total" class="container">
+                    <div class="row">
+                        <div class="col">
+                        Total:
+                        </div>
+                        <div style="font-weight:bold;" class="col">
+                        <?php echo('$'.$car['price']+200+500);?>
+                        </div>
+                    </div>
+                </div>
+                <a style="background-color:indianred;" class="btn btn-primary" href="index.php?a=payment" role="button">Go to Payment</a>
+                
+                
 
             </div>
             
