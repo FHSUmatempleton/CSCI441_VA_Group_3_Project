@@ -1,8 +1,35 @@
 <style>
   /************FINALIZE PURCHASE***********/
-  .div_container{
-    font-size = 100px;
+ 
+  .description_header{
+    background-color: rgb(166, 166, 166);
+    margin:-10px;
+    margin-left: -30px;
+    margin-bottom:5px;
+    padding-top: 1px;
+    height: 50px;
+    border: 1px ridge white;
   }
+  #description{
+    color: black;
+    font-weight: bold;
+    margin-left: 20px;
+    font-size:30px;
+}
+.finalize_header{
+  background-color: gray;
+  margin:-10px;
+  margin-left: -30px;
+  padding-top: 1px;
+  height: 50px;
+  border: 2px ridge white;
+  
+}
+#finalizetext{
+    color: indianred;
+    font-weight: bolder;
+    margin-left: 20px;
+}
 </style>
 <!----------include files to get id of car and to mirror car info from view page-->
 <?php
@@ -20,13 +47,19 @@ error_reporting(E_ALL);
 	
 	$car = get_car_by_id($id);
 ?>
+
+<?php
+    //get account info
+    $hash = $_SESSION['login'];
+    $account = get_account_by_hash($hash);
+?>
 <!--------------------------------------------------------------------------------HTML------------------------------------------------------------------------->
 
 <html>  
     <body>
         <div id="wrapper"> 
 <!----------------------------side Navigation page------------------------------>            
-<div class="sidenav">
+            <div class="sidenav">
                 <a href="" style = "color:white;" id="carDetails">
                     <img>
                     <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
@@ -44,240 +77,124 @@ error_reporting(E_ALL);
 <!----------------------------main page on the other side------------------------------>
             <div class="main">
                 <!-------------header--------------->
-                <header class="purchase_header">
-                    <p id="purchase_car">FINALIZE YOUR PURCHASE</p>
+                <header class="finalize_header">
+                    <p id="finalizetext">FINALIZE YOUR PURCHASE</p>
                 </header>
-                <!---------------Finalize Purchase-------------->
-                <?php
-    require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
-
-   // if (!isset($_SESSION['login'])) {
-    //    header("Location: /index.php");
-   // }
-    
-    $hash = $_SESSION['login'];
-    $account = get_account_by_hash($hash);
-    $car = get_car_by_id(3);
-?>
-
-
-
-    <div class="container">
-        <h1 class="mb-3 bread">Car Purchase Agreement</h1>
-    </div>
-
-    <section class="ftco-section ftco-car-details">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="car-details">
-                        <div class="text text-center">
-                            <h2><?php echo($car['year'] . " " . $car['manufacturer'] . " " . $car['model']);?></h2>
+                
+                <div class="container">
+                    <div class="row">
+                        <div style="font-weight:bold;" class="col">
+                        Seller:
+                        </div>
+                        <div style="font-weight:bold;" class="col">
+                        Buyer:
                         </div>
                     </div>
                 </div>
-            </div>
-          <div class="div_container">  
-            <p>
-                This car purchase agreement has been entered into as of <?php echo date("m/d/y") ?> between Cartana Inc. (Seller)
-                and <?php echo($account['f_name'] . " " . $account['l_name']);?> (Buyer).
-            </p>
-            <h3>Payment</h3>
-            <p>
-                The total purchase price to be paid by Buyer to Seller for the vehicle listed is inclusive of all down
-                payments made by Buyer.
-                Total purchase price is broken down as follows:
-                <li>
-                    Payment Due to Buyer on or before execution of this agreement:
-                    $<span><?php echo($car['price']);?></span>
-                </li>
-                <li>
-                    Payments can be made via cash, money order, or with prior approval check made out to seller.
-                </li>
-            </p>
-            <p>The vehicle being sold is as follows:
-                <li>
-                    <h5 class="heading mb-0 pl-3">
-                        Make:
-                        <span><?php echo($car['manufacturer']);?></span>
-                    </h5>
-                </li>
-                <li>
-                    <h5 class="heading mb-0 pl-3">
-                        Model:
-                        <span><?php echo($car['model']);?></span>
-                    </h5>
-                </li>
-                <li>
-                    <h5 class="heading mb-0 pl-3">
-                        Year:
-                        <span><?php echo($car['year']);?></span>
-                    </h5>
-                </li>
-                <li>
-                    <h5 class="heading mb-0 pl-3">
-                        Color:
-                        <span><?php echo($car['color']);?></span>
-                    </h5>
-                </li>
-                <li>
-                    <h5 class="heading mb-0 pl-3">
-                        Milage:
-                        <span><?php echo($car['odo']);?></span>
-                    </h5>
-                </li>
-                <li>
-                    <h5 class="heading mb-0 pl-3">
-                        VIN:
-                        <span><?php echo($car['vin']);?></span>
-                    </h5>
-                </li>
-            </p>
-            <p>
-                Seller desires to sell the vehicle described above, Buyer accepts the above mentioned vehicle and agrees
-                to price and delivery of the “Acquired Vehicle”,
-                under the terms and conditions set forth below; Buyer shall take possession of same, as agreed between
-                both parties on or before “Delivery Date”.
-                If delivery is to be made at a date after the execution of this contract, acquired vehicle will be
-                delivered in the same condition as inspection condition.
-                Seller is responsible for the execution all documents presented by Buyer which are necessary to transfer
-                title and registration to buyer.
-            </p>
-            <h3>Warranty</h3>
-            <p>
-                Warranties. This vehicle is sold “AS IS”, and Seller does not in any way, expressly or implied, give any
-                warranties to Buyer.
-            </p>
-            <h3>Odometer</h3>
-            <p>
-                Odometer Declaration. Seller agrees that the odometer in the Acquired Vehicle now reads miles
-                and to the best of Seller’s knowledge it reflects the actual mileage of the vehicle described herein.
-            </p>
-            <h3>Buyer Representation</h3>
-            <p>
-                Buyer Representation. Buyer may have an individual represent themselves for signing of this agreement as
-                long as said individual provides to Seller that
-                he or she has the power and authority to do so on behalf of Buyer.
-            </p>
-            <h3>Buyer’s Insurance & Tags</h3>
-            <p>
-                Buyer acknowledges that unless prohibited by applicable law, any insurance coverage, license, tags,
-                plates or registration maintained by Seller on the Acquired Vehicle
-                shall be canceled upon delivery of the Acquired Vehicle to, and the acceptance of, by Buyer.
-            </p>
-            <h3>Continuation of Warranties</h3>
-            <p>
-                All representations and warranties contained in this Agreement (if any) shall continue in full force and
-                effect after execution of this agreement.
-                If either party later learns that a warranty or representation that it made is untrue, it is under a
-                duty to promptly disclose this information to the other party in writing.
-                No representation or warranty contained herein shall be deemed to have been waived or impaired by any
-                investigation made by or knowledge of the other party to this Agreement.
-            </p>
-            <h3>Indemnification</h3>
-            <p>
-                Indemnification of Attorneys Fees and out-of-pocket costs. Should any party materially breach this
-                agreement (including representations and warranties made to the other side),
-                the non-breaching party shall be indemnified by the breaching party for its reasonable attorneys fees
-                and out-of-pocket costs which in any way relate to, or were precipitated by,
-                the breach of this contract (including the breach of representations or warranties). This provision
-                shall not limit in any way the remedies either party may have otherwise
-                possessed in law or equity relative to a breach of this contract. The term “out- of-pocket costs”, as
-                used in this contract, shall not include lost profits.
-            </p>
-            <h3>Entire Agreement</h3>
-            <p>
-                This Agreement, including the attachments mentioned in the body as incorporated by reference, sets forth
-                the entire agreement between the Parties with regard to the subject matter hereof.
-                All prior agreements, representations and warranties, express or implied, oral or written, with respect
-                to the subject matter hereof, are hereby superseded by this agreement.
-            </p>
-            <h3>Severability</h3>
-            <p>
-                In the event any provision of this Agreement is deemed to be void, invalid, or unenforceable, that
-                provision shall be severed from the remainder of this Agreement so as not to cause
-                the invalidity or unenforceability of the remainder of this Agreement. All remaining provisions of this
-                Agreement shall then continue in full force and effect.
-                If any provision shall be deemed invalid due to its scope or breadth, such provision shall be deemed
-                valid to the extent of the scope and breadth permitted by law.
-            </p>
-            <h3>Modification</h3>
-            <p>
-                Except as otherwise provided in this document, this agreement may be modified, superseded, or voided
-                only upon the written and signed agreement of the Parties.
-                Further, the physical destruction or loss of this document shall not be construed as a modification or
-                termination of the agreement contained herein.
-            </p>
-            <h3>Acknowledgments</h3>
-            <p>
-                Each party acknowledges that he or she has had an adequate opportunity to read and study this Agreement,
-                to consider it, to consult with attorneys if he or she has so desired.
-            </p>
-            <h3>Exclusive Jurisdiction</h3>
-            <p>
-                The Parties, by entering into this agreement, submit to jurisdiction in <?php echo($account['state']);?> for
-                adjudication of any disputes and/or claims between the parties under this agreement.
-                Furthermore, the parties hereby agree that the courts of <?php echo($account['state']);?> shall have exclusive
-                jurisdiction over any disputes between the parties relative to this agreement,
-                whether said disputes sound in contract, tort, or other areas of the law. This Agreement shall be
-                interpreted under, and governed by, the laws of the state of <?php echo($account['state']);?>.
-            </p>
-            <h3>Acceptance</h3>
-            <p>
-                Both signing parties acknowledge the acceptance and agreement of all terms conditions and deliverables.
-                Seller and Buyer affix their signatures as follows.
-            </p>
-            <p>
-                <li>Cartana Inc</li>
-                <li>Signature</li>
-                <li><?php echo date("m/d/y") ?></li>
-            </p>
-            <p>
-                <li><?php echo($account['f_name'] . " " . $account['l_name']);?></li>
-                <li>Signature</li>
-                <li><?php echo date("m/d/y") ?></li>
-            </p>
-          </div><!--end of text container div-->            
-            <div class="row">
-                <div class="col-md-12 pills">
-                    <div class="bd-example bd-example-tabs">
-                        <div class="d-flex justify-content-center">
-                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-description-tab" data-toggle="pill"
-                                        href="#pills-description" role="tab" aria-controls="pills-description"
-                                        aria-expanded="true">Cancel</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-manufacturer-tab" data-toggle="pill"
-                                        href="#pills-manufacturer" role="tab" aria-controls="pills-manufacturer"
-                                        aria-expanded="true">Submit</a>
-                                </li>
-                            </ul>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                        Cartana LLC
                         </div>
+                        <div class="col">
+                        <?php echo($account['f_name']. " " . $account['l_name']);?>
+                        </div>
+                    </div>
+                </div>
+                <h2 style="margin-top: 3px;" class="description_header">
+                    <p id="description">Vehicle Description</p>
+                </h2> 
+                <div class="container">
+                    <p style="font-size:large;">Year: <?php echo($car['year']);?></p>
+                    <p style="font-size:large;">Make: <?php echo($car['manufacturer']);?></p>
+                    <p style="font-size:large;">Model: <?php echo($car['model']);?></p>
+                    <p style="font-size:large;" >Vin: <?php echo($car['vin']);?></p>
+                    <p style="font-size:large;" >Color: <?php echo($car['color']);?></p>
+                </div>
+                <h2 class="description_header">
+                    <p id="description">Price Breakdown</p> 
+                </h2>
+                    <div class="row">
+                        <div style="font-size:large;" class="col">
+                        List Price:
+                        </div>
+                        <div style="font-weight:bold; font-size:large;" class="col">
+                        <?php echo('$'.$car['price']);?>
+                        </div>
+                    </div>
+                
+
+                <div class="container">
+                    <div class="row">
+                        <div style="font-size:large;" class="col">
+                        Fee:
+                        </div>
+                        <div style="font-weight:bold; font-size:large;" class="col">
+                        $200.00
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div style="font-size:large;" class="col">
+                        Taxes:
+                        </div>
+                        <div style="font-weight:bold; font-size:large;" class="col">
+                        $500.00
+                        </div>
+                    </div>
+                </div>
+
+                <div id="total" class="container">
+                    <div style="font-size:large;" class="row">
+                        <div class="col">
+                        Total:
+                        </div>
+                        <div style="font-weight:bold; font-size:large;"class="col">
+                        <?php echo('$'.$car['price']+200+500);?>
+                        </div>
+                    </div>
+                </div>    
+                <div>
+                </hr>
+                <h4>I have read the <a href="index.php?a=agreement">Full Purchase Agreement</a> and agreed to the terms therein.</h4>
+                    <form action="controller/purchase/finalize.php" method="post">
+                    <!-- <div class="form-group">
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="gridCheck" name="purchase_agreement" value="yes">
+                        <label class="form-check-label" for="gridCheck">
+                            I have read the <a href="index.php?a=agreement">Full Purchase Agreement</a> and agreed to the terms therein.
+                        </label>
+                    </div> -->
+                    <div style="font-color: black;" class= "form-group">
+                            <select name = "finalize" id="finalize">
+                                <option hidden>Please choose:</option>
+                                <option  value="Yes">I agree</option>
+                                <option  value="No">I do not agree</option>
+                                
+                            </select>
+                        </div>
+                    <button style="background-color:indianred; border: 2px ridge white;" onclick="document.location='/index.php?a=finalize'" type="submit" class="btn btn-primary">Finalize Purchase</button>
+                    </form>
+
+                </div>
+                    
+                    
 
                         
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/jquery.timepicker.min.js"></script>
-    <script src="js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false">
-    </script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>     
-              
+                    
+                       
+                    
             </div>
-            
+                    
 
-
+                    
+                    
+                
+                <!---------------Finalize Purchase-------------->
+                
 
                 
             
