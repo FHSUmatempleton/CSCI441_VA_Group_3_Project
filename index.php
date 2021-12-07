@@ -91,7 +91,7 @@
 					array_push($includeCSS, "/css/purchase/purchase.css");
 					$FileLoc = "purchase/review.php";
 					break;
-				case 'finalize': //finalize payment page HC
+				case 'finalize': //finalize payment page HC purchase\finalize.php
 					$PageTitle = "Purchase Car";
 					array_push($includeCSS, "/css/purchase/purchase.css");
 					$FileLoc = "purchase/finalize.php";
@@ -101,11 +101,7 @@
 					array_push($includeCSS, "/css/purchase/purchase.css");
 					$FileLoc = "purchase/payment.php";
 					break;
-				case 'purchaseagreement': //purchase agreement HC
-						$PageTitle = "Purchase Agreement";
-						array_push($includeCSS, "/css/purchase/purchase.css");
-						$FileLoc = "purchase/purchaseagreement.php"; 
-						break;
+
 			}
 			include_once('view/header1.php');
 			foreach ($includeCSS as $cssFile): ?>
