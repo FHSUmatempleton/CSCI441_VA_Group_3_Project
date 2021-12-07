@@ -52,8 +52,8 @@ error_reporting(E_ALL);
             </br>
                 <a href="index.php?a=purchase" style = "color: black;">Personal Information</a> </br>
                 <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
-                <a href="index.php?a=payment">Payment</a> </br>
                 <a href="index.php?a=review">Review Order</a> </br>
+                <a href="index.php?a=payment">Payment</a> </br>   
                 <a href="index.php?a=finalize">FINALIZE PURCHASE</a> </br>
             </div>
 <!-------------header--------------->
