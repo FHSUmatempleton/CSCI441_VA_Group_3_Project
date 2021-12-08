@@ -30,4 +30,4 @@ var_dump($id);
 var_dump($_POST['id']);
 var_dump($uid);
 set_reservation($id, $uid);
-#header("Location: /index.php?a=view&id=" . $id);
+header("Location: /index.php?a=view&id=" . $id);

@@ -76,6 +76,11 @@
 					$FileLoc = "checkout/agreement.php";
 					break;
 
+				case 'analytics':
+					$PageTitle = "Analytics";
+					$FileLoc = "reports/reports.php";
+					break;
+
 				case 'purchase': //purchase HC
 					$PageTitle = "Purchase Car";
 					array_push($includeCSS, "/css/purchase/purchase.css"); 

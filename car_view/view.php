@@ -53,7 +53,8 @@ error_reporting(E_ALL);
 	<div class="container">
 		<h1 class="mb-3 bread">Car Details</h1>
 		<!--Reserve button-->
-		<?php
+		<div id="reserve_button">
+			<?php
 			if (get_reservation_status($car['id'])) {
 				$time = new DateTime(get_reservation_time($car['id'])); 
 				$timeExpire = $time->add(new DateInterval('PT30M'));
@@ -62,32 +63,34 @@ error_reporting(E_ALL);
 					delete_reservation($car['id']);
 				}
 			}
-		?>
+			?>
 
-		<?php if (get_reservation_status($car['id'])): ?>
-		<?php if (get_reservation_user_by_car($car['id']) == get_account_by_hash($_SESSION['login'])['id']): ?>
-		<?php
-		$timeDiff = $timeExpire->diff($timeNow);
+			<?php if (get_reservation_status($car['id'])): ?>
+			<?php if (get_reservation_user_by_car($car['id']) == get_account_by_hash($_SESSION['login'])['id']): ?>
+			<?php
+			$timeDiff = $timeExpire->diff($timeNow);
 		
-		?>
-		<div class="sty">Reserved for
-			<div id="time_container"><?php echo $timeDiff->format('%I:%S');?></div>
-		</div>
-		<form action="index.php?a=purchase" method="post">
-			<input id="id" name="id" hidden value="<?php echo $car['id'];?>">
-			<input type="submit" id="purchaseNowButton" value="Purchase">
-		</form>
-		<?php else: ?>
-		<?php endif; ?>
-		<?php else: ?>
-		<div>
-			<form action="/controller/inventory/reserve.php" method="post">
+			?>
+			<div class="sty">Reserved for
+				<div id="time_container"><?php echo $timeDiff->format('%I:%S');?></div>
+			</div>
+			<form action="index.php?a=purchase" method="post">
 				<input id="id" name="id" hidden value="<?php echo $car['id'];?>">
-				<input type="submit" id="purchaseNowButton" value="Reserve">
+				<input type="submit" id="purchaseNowButton" value="Purchase">
 			</form>
+			<?php else: ?>
+			<?php endif; ?>
+			<?php else: ?>
+			<div>
+				<form action="/controller/inventory/reserve.php" method="post">
+					<input id="id" name="id" hidden value="<?php echo $car['id'];?>">
+					<input type="submit" id="purchaseNowButton" value="Reserve">
+				</form>
+			</div>
+			<?php endif; ?>
 		</div>
-		<?php endif; ?>
 	</div>
+
 	<section class="ftco-section ftco-car-details">
 
 		<div class="container">
@@ -145,7 +148,8 @@ error_reporting(E_ALL);
 				<div class="col-md-12">
 					<div class="car-details">
 						<div class="text text-center">
-							<h1><?php echo($car['manufacturer'] . " " . $car['model']);?></h1>
+							<h1><?php echo($car['manufacturer'] . " " . $car['model']);?></h1></br>
+							<h2>$<?php echo(number_format($car['price']));?></h2>
 						</div>
 					</div>
 				</div>
@@ -250,36 +254,8 @@ error_reporting(E_ALL);
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<ul class="features">
-						<li class="check"><span class="ion-ios-checkmark"></span>Airconditions</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Child Seat</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>GPS</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Luggage</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Music</li>
-					</ul>
-				</div>
-				<div class="col-md-4">
-					<ul class="features">
-						<li class="check"><span class="ion-ios-checkmark"></span>Seat Belt</li>
-						<li class="remove"><span class="ion-ios-close"></span>Sleeping Bed</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Water</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Bluetooth</li>
-						<li class="remove"><span class="ion-ios-close"></span>Onboard computer</li>
-					</ul>
-				</div>
-				<div class="col-md-4">
-					<ul class="features">
-						<li class="check"><span class="ion-ios-checkmark"></span>Audio input</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Long Term Trips</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Car Kit</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Remote central locking</li>
-						<li class="check"><span class="ion-ios-checkmark"></span>Climate control</li>
-					</ul>
-				</div>
-			</div>
 		</div>
+</div>
 </div>
 </div>
 </div>
@@ -289,45 +265,38 @@ error_reporting(E_ALL);
 </div>
 
 <script>
-	function updateTimer(expire) {
+	var expire = new Date(Date.now());
+	var timer_obj = document.getElementById("time_container");
 
-		var timer = document.getElementById("time_container");
+	function pad(num, size) {
+		num = num.toString();
+		while (num.length < size) num = "0" + num;
+		return num;
+	}
+
+	function updateTimer() {
 		var now = new Date(Date.now());
 		var time_to_expire = (expire.getTime() - now.getTime()) / 1000;
-		var seconds = time_to_expire % 60;
+		var seconds = Math.floor(time_to_expire % 60);
 		var remain = time_to_expire - seconds;
 		if (remain < 60) {
 			var minutes = 0;
 		} else {
-			var minutes = remain / 60;
+			var minutes = Math.round(remain / 60);
 		}
-		console.log(minutes + ":" + seconds);
-		timer.innerHTML = minutes + ":" + seconds);
 
-
+		if (time_to_expire <= 0) {
+			location.reload();
+		}
+		timer_obj.innerHTML = pad(minutes, 2) + ":" + pad(seconds, 2);
 	};
+
 	window.onload = function () {
 		var timer = document.getElementById("time_container").innerHTML;
 		var time_split = timer.split(':');
 		var seconds_to_expire = (parseInt(time_split[0], 10) * 60) + parseInt(time_split[1], 10);
-		var expire = new Date(Date.now());
+
 		expire.setSeconds(expire.getSeconds() + seconds_to_expire);
-		var timer_obj = document.getElementById("time_container");
-
-		setInterval(function () {
-				var now = new Date(Date.now());
-				var time_to_expire = (expire.getTime() - now.getTime()) / 1000;
-				var seconds = time_to_expire % 60;
-				var remain = time_to_expire - seconds;
-				var remain = time_to_expire - seconds;
-				if (remain < 60) {
-					var minutes = 0;
-				} else {
-					var minutes = remain / 60;
-				}
-				console.log(minutes + ":" + seconds);
-				timer.innerHTML = minutes + ":" + seconds);
-		}, 1000);
-
+		setInterval(updateTimer, 1000);
 	};
 </script>
