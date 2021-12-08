@@ -59,6 +59,7 @@
 					break;
 				case 'admin':
 					$PageTitle = "Admin";
+					array_push($includeCSS, "css/search/search.css");
 					$FileLoc = "admin/admin.php";
 					break;
 				case 'inventory':
