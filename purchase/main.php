@@ -38,21 +38,7 @@ error_reporting(E_ALL);
 <body>
     <div id="wrapper">
         <!----------------------------side Navigation page------------------------------>
-        <div class="sidenav">
-            <a href="" style="color:white;" id="carDetails">
-                <img>
-                <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
-
-                <p><?php echo('List Price: $'.$car['price']);?></p>
-
-            </a>
-            </br>
-            <a href="index.php?a=purchase" style="color: black;">Personal Information</a> </br>
-            <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
-            <a href="index.php?a=review">Review Order</a> </br>
-            <a href="index.php?a=payment">Payment</a> </br>
-            <a href="index.php?a=finalize">FINALIZE PURCHASE</a> </br>
-        </div>
+            <?php include_once($_SERVER['DOCUMENT_ROOT'].'/view/purchase_nav.php');?>
         <!-------------header--------------->
         <header class="purchase_header">
             <p id="topHeader">PURCHASE CAR</p>
@@ -103,8 +89,7 @@ error_reporting(E_ALL);
                     <input type="text" class="form-control" id="phone" name="phone" maxlength="10"
                         value="<?php echo($account['phone']);?>">
                 </div>
-                <button style="background-color: indianred; border: 2px ridge white;"
-                    onclick="document.location='/purchase/transport.php'" type="submit"
+                <button style="background-color: indianred; border: none;" type="submit"
                     class="btn btn-primary">Submit</button>
         </div></br>
 

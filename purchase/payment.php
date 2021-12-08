@@ -57,21 +57,7 @@ error_reporting(E_ALL);
     <body>
         <div id="wrapper"> 
 <!----------------------------side Navigation page------------------------------>            
-<div class="sidenav">
-                <a href="" style = "color:white;" id="carDetails">
-                    <img>
-                    <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
-                    
-                    <p><?php echo('List Price: $'.$car['price']);?></p>
-
-                </a> 
-            </br>
-                <a href="index.php?a=purchase" >Personal Information</a> </br>
-                <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
-                <a href="index.php?a=review">Review Order</a> </br>
-                <a href="index.php?a=payment"style = "color: black;">Payment</a> </br>   
-                <a href="index.php?a=finalize">FINALIZE PURCHASE</a> </br>
-            </div>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/view/purchase_nav.php');?>
 <!----------------------------main page on the other side------------------------------>
             <div class="main">
                 <!-------------header--------------->

@@ -63,21 +63,7 @@ error_reporting(E_ALL);
     <body>
         <div id="wrapper"> 
 <!----------------------------side Navigation page------------------------------>            
-<div class="sidenav">
-                <a href="" style = "color:white;" id="carDetails">
-                    <img>
-                    <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
-                    
-                    <p><?php echo('List Price: $'.$car['price']);?></p>
-
-                </a> 
-            </br>
-            <a href="index.php?a=purchase" >Personal Information</a> </br>
-                <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
-                <a href="index.php?a=review"style = "color: black;">Review Order</a> </br>
-                <a href="index.php?a=payment">Payment</a> </br>   
-                <a href="index.php?a=finalize">FINALIZE PURCHASE</a> </br>
-            </div>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/view/purchase_nav.php');?>
 <!----------------------------main page on the other side------------------------------>
             <div class="main">
                 <!-------------header--------------->
@@ -93,9 +79,10 @@ error_reporting(E_ALL);
                         <div class="col">
                         List Price:
                         </div>
-                        <div style="font-weight:bold;" class="col">
-                        <?php echo('$'.$car['price']);?>
+                        <div style="font-weight:bold;" class="col text-end">
+                        <?php echo('$'.number_format($car['price'], 2));?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 </div>
 
@@ -104,9 +91,10 @@ error_reporting(E_ALL);
                         <div class="col">
                         Fee:
                         </div>
-                        <div style="font-weight:bold;" class="col">
-                        $200.00
+                        <div style="font-weight:bold;" class="col text-end">
+                        <?php $fee = round($car['price'] * 0.0175, 2); echo "$".number_format($fee, 2);?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 </div>
 
@@ -115,23 +103,25 @@ error_reporting(E_ALL);
                         <div class="col">
                         Taxes:
                         </div>
-                        <div style="font-weight:bold;" class="col">
-                        $500.00
+                        <div style="font-weight:bold;" class="col text-end">
+                        <?php $taxes = round($car['price'] * 0.0725, 2); echo "$".number_format($taxes, 2);?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 </div>
 
-                <div id="total" class="container">
+                <div id="total" class="container" style="border-style: none;">
                     <div class="row">
                         <div class="col">
                         Total:
                         </div>
-                        <div style="font-weight:bold;" class="col">
-                        <?php echo('$'.$car['price']+200+500);?>
+                        <div style="font-weight:bold;" class="col text-end">
+                        <?php echo('$'.number_format($car['price']+$fee+$taxes, 2));?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 </div>
-                <a style="background-color:indianred;" class="btn btn-primary" href="index.php?a=payment" role="button">Go to Payment</a>
+                <a style="background-color:indianred; border-style: none;" class="btn btn-primary" href="index.php?a=payment" role="button">Go to Payment</a>
                 
                 
 

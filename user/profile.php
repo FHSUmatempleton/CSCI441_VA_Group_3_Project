@@ -1,6 +1,7 @@
 <?php
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
     require_once($_SERVER['DOCUMENT_ROOT'].'/model/account_db.php');
+    require_once($_SERVER['DOCUMENT_ROOT'].'/model/purchase_db.php');
 
     if (!isset($_SESSION['login'])) {
         header("Location: /index.php");
@@ -8,6 +9,7 @@
     
     $hash = $_SESSION['login'];
     $account = get_account_by_hash($hash);
+    $transactions = get_tx_by_user($account['id']);
 ?>
 
 <div id="wrapper">
@@ -122,7 +124,14 @@
                                 </form>
                             </div>
                         </div>
+                        <div id="transactions" class="text-begin">
+                        Transactions:</br>
+                        <?php foreach($transactions as $trans): ?>
+                            Bought <?php echo $trans['vin'];?> </br>
+                        <?php endforeach;?>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </section>

@@ -46,6 +46,8 @@ error_reporting(E_ALL);
 	}
 	
 	$car = get_car_by_id($id);
+    $fee = round($car['price'] * 0.0175, 2);
+    $taxes = round($car['price'] * 0.0725, 2);
 ?>
 
 <?php
@@ -59,21 +61,7 @@ error_reporting(E_ALL);
     <body>
         <div id="wrapper"> 
 <!----------------------------side Navigation page------------------------------>            
-            <div class="sidenav">
-                <a href="" style = "color:white;" id="carDetails">
-                    <img>
-                    <p><?php echo($car['year'] . " " .$car['manufacturer'] . " " . $car['model']);?></p>
-                    
-                    <p><?php echo('List Price: $'.$car['price']);?></p>
-
-                </a> 
-            </br>
-                <a href="index.php?a=purchase" >Personal Information</a> </br>
-                <a href="index.php?a=transport">Delivery or Pick Up</a> </br>
-                <a href="index.php?a=review">Review Order</a> </br>
-                <a href="index.php?a=payment">Payment</a> </br>   
-                <a href="index.php?a=finalize" style = "color: black;">FINALIZE PURCHASE</a> </br>
-            </div>
+<?php include_once($_SERVER['DOCUMENT_ROOT'].'/view/purchase_nav.php');?>
 <!----------------------------main page on the other side------------------------------>
             <div class="main">
                 <!-------------header--------------->
@@ -119,9 +107,10 @@ error_reporting(E_ALL);
                         <div style="font-size:large;" class="col">
                         List Price:
                         </div>
-                        <div style="font-weight:bold; font-size:large;" class="col">
-                        <?php echo('$'.$car['price']);?>
+                        <div style="font-weight:bold; font-size:large;" class="col text-end">
+                        <?php echo('$'.number_format($car['price'], 2));?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 
 
@@ -130,9 +119,10 @@ error_reporting(E_ALL);
                         <div style="font-size:large;" class="col">
                         Fee:
                         </div>
-                        <div style="font-weight:bold; font-size:large;" class="col">
-                        $200.00
+                        <div style="font-weight:bold; font-size:large;" class="col text-end">
+                        <?php echo('$'.number_format($fee, 2));?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 </div>
 
@@ -141,9 +131,10 @@ error_reporting(E_ALL);
                         <div style="font-size:large;" class="col">
                         Taxes:
                         </div>
-                        <div style="font-weight:bold; font-size:large;" class="col">
-                        $500.00
+                        <div style="font-weight:bold; font-size:large;" class="col text-end">
+                        <?php echo('$'.number_format($taxes, 2));?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 </div>
 
@@ -152,9 +143,10 @@ error_reporting(E_ALL);
                         <div class="col">
                         Total:
                         </div>
-                        <div style="font-weight:bold; font-size:large;"class="col">
-                        <?php echo('$'.$car['price']+200+500);?>
+                        <div style="font-weight:bold; font-size:large;"class="col text-end">
+                        <?php echo('$'.$car['price']+$fee+$taxes);?>
                         </div>
+                        <div class="col"></div>
                     </div>
                 </div>    
                 <div>
