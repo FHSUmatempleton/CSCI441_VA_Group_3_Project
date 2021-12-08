@@ -8,9 +8,9 @@
             </a>
             </br>
             <?php $action = $_GET['a'];?>
-            <a href="index.php?a=purchase" <?php if ($action == "purchase") {echo ('style="color: black;"');}?> >Personal Information</a> </br>
-            <a href="index.php?a=transport" <?php if ($action == "transport") {echo ('style="color: black;"');}?> >Delivery or Pick Up</a> </br>
-            <a href="index.php?a=review" <?php if ($action == "review") {echo ('style="color: black;"');}?> >Review Order</a> </br>
-            <a href="index.php?a=payment" <?php if ($action == "payment") {echo ('style="color: black;"');}?> >Payment</a> </br>
-            <a href="index.php?a=finalize" <?php if ($action == "finalize") {echo ('style="color: black;"');}?> >FINALIZE PURCHASE</a> </br>
+            <a href="index.php?a=purchase" <?php if ($action == "purchase") {echo ('style="color: black;"');}?> >Personal Information</a>
+            <a href="index.php?a=transport" <?php if ($action == "transport") {echo ('style="color: black;"');}?> >Delivery or Pick Up</a>
+            <a href="index.php?a=review" <?php if ($action == "review") {echo ('style="color: black;"');}?> >Review Order</a>
+            <a href="index.php?a=payment" <?php if ($action == "payment") {echo ('style="color: black;"');}?> >Payment</a>
+            <a href="index.php?a=finalize" <?php if ($action == "finalize") {echo ('style="color: black;"');}?> >FINALIZE PURCHASE</a>
         </div>
