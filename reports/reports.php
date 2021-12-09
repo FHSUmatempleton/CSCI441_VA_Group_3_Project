@@ -5,11 +5,17 @@ error_reporting(E_ALL);
 	require_once($_SERVER['DOCUMENT_ROOT'].'/model/search_db.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/model/db.php');
 	require_once($_SERVER['DOCUMENT_ROOT'].'/model/car_db.php');
-	require_once($_SERVER['DOCUMENT_ROOT'].'/model/analytics.php');
 ?>
 <!----------------------------------------------------------------------------------HTML-------------------------------------------------------------------------------->
 
 <html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+</head>
 
 <body>
 	<div class="container">
@@ -56,12 +62,7 @@ error_reporting(E_ALL);
 
 <html>
 
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-</head>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-15">
@@ -95,7 +96,7 @@ error_reporting(E_ALL);
 
 		function makechart(attribute) {
 			$.ajax({
-				url: "reports/data.php",
+				url: "model/analytics.php",
 				method: "POST",
 				data: {
 					action: attribute

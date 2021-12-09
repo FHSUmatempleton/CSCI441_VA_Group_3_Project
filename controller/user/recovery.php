@@ -37,11 +37,7 @@
         $token = $record['token_key'];
 
         //  Password reset link
-        if ($debug) {
-            $url = 'localhost/index.php?a=recovery2&h='.$token;
-        } else {
-            $url = 'https://web.gelat.in/index.php?a=recovery2&h='.$token;
-        }
+        $url = 'https://web.gelat.in/index.php?a=recovery2&h='.$token;
         
         //  Send mail
         if ($debug) {

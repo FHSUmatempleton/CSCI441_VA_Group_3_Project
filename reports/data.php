@@ -2,7 +2,11 @@
 
 //data.php
 
-$connect = new PDO("mysql:host=localhost;dbname=testing", "root", "");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+global $db;
 
 if(isset($_POST["action"]))
 {
@@ -14,7 +18,7 @@ if(isset($_POST["action"]))
 		GROUP BY make
 		";
 
-		$result = $connect->query($query);
+		$result = $db->query($query);
 
 		$data = array();
 
@@ -37,7 +41,7 @@ if(isset($_POST["action"]))
 		GROUP BY color
 		";
 
-		$result = $connect->query($query);
+		$result = $db->query($query);
 
 		$data = array();
 
@@ -60,7 +64,7 @@ if(isset($_POST["action"]))
 		GROUP BY body
 		";
 
-		$result = $connect->query($query);
+		$result = $db->query($query);
 
 		$data = array();
 
